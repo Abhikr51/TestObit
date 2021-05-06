@@ -21,3 +21,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+#fontawesome
+/public/assets/exclusive-templates
+/public/assets/fontawesome
+/public/assets/src
+/public/assets/js
+/public/assets/scss
