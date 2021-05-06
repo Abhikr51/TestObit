@@ -10,6 +10,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import VerifyEmail from './views/student/VerifyEmail';
 import AllSet from './views/student/AllSet';
+import StudentLayout from './views/student/layouts/StudentLayout';
 
 
 export default function App() {
@@ -36,6 +37,10 @@ export default function App() {
               <Route exact path="/register" component={Register} />
               <Route exact path="/verify" component={VerifyEmail} />
               <Route exact path="/all-set" component={AllSet} />
+
+
+              
+              <Route exact path="/student" component={StudentLayout} />
           </Switch>
         </AnimatePresence>
       </ThemeProvider>

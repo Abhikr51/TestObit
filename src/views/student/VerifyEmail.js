@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { pageTransitions, pageVariants } from '../../globals/__gobal_vars'
-import {motion} from "framer-motion"
 import { Link } from 'react-router-dom'
+import Animate from '../../components/Animate'
 export default class VerifyEmail extends Component {
     state = {
         code1 : "",
@@ -42,46 +41,41 @@ export default class VerifyEmail extends Component {
     }
     render() {
         return (
-            <motion.div 
-            initial='initial'
-            animate='animate'
-            exit='out'
-            variants={pageVariants}
-            transition = {pageTransitions}
-            
-            className="wrapper">
-                <div className="topbar">
-                    <div className="topbar-text">
-                        Verification
+            <Animate >
+                <div className="wrapper">
+                    <div className="topbar">
+                        <div className="topbar-text">
+                            Verification
+                        </div>
                     </div>
-                </div>
-                <div className="container-fluid">
-                    <div className="card">
-                        <div className="card-body">
-                                <p className="text-center"><i className="fas fa-shield-alt" /> Please verify your email.</p>
-                                <p className="text-center mb-3">A verifiaction code was sent to your email <span className="text-primary">kumarisback98@gmail.com</span> . <br/>
-                                    Please Put the 4 digit code here .
-                                </p>
-                            <div className="row justify-content-center">
-                                
-                                <div className="col-9">
-                                    <div id="verify-block" className="input-group text-center">
-                                        <input onChange={(e)=>{this.setState({code1 : e.target.value})}} value={this.state.code1} type="number" aria-label="code1" className="form-control text-center" maxLength="1" />
-                                        <input onChange={(e)=>{this.setState({code2 : e.target.value})}} value={this.state.code2} type="number" aria-label="code2" className="form-control text-center" maxLength="1" />
-                                        <input onChange={(e)=>{this.setState({code3 : e.target.value})}} value={this.state.code3} type="number" aria-label="code3" className="form-control text-center" maxLength="1" />
-                                        <input onChange={(e)=>{this.setState({code4 : e.target.value})}} value={this.state.code4} type="number" aria-label="code4" className="form-control text-center" maxLength="1" />
+                    <div className="container-fluid">
+                        <div className="card">
+                            <div className="card-body">
+                                    <p className="text-center"><i className="fas fa-shield-alt" /> Please verify your email.</p>
+                                    <p className="text-center mb-3">A verifiaction code was sent to your email <span className="text-primary">kumarisback98@gmail.com</span> . <br/>
+                                        Please Put the 4 digit code here .
+                                    </p>
+                                <div className="row justify-content-center">
+                                    
+                                    <div className="col-9">
+                                        <div id="verify-block" className="input-group text-center">
+                                            <input onChange={(e)=>{this.setState({code1 : e.target.value})}} value={this.state.code1} type="number" aria-label="code1" className="form-control text-center" maxLength="1" />
+                                            <input onChange={(e)=>{this.setState({code2 : e.target.value})}} value={this.state.code2} type="number" aria-label="code2" className="form-control text-center" maxLength="1" />
+                                            <input onChange={(e)=>{this.setState({code3 : e.target.value})}} value={this.state.code3} type="number" aria-label="code3" className="form-control text-center" maxLength="1" />
+                                            <input onChange={(e)=>{this.setState({code4 : e.target.value})}} value={this.state.code4} type="number" aria-label="code4" className="form-control text-center" maxLength="1" />
+                                        </div>
+                                    </div>
+                                    <div className="col-6 mt-3">
+                                    <Link to="/all-set" ><button type="button" className="btn btn-primary btn-block">Next</button></Link>
                                     </div>
                                 </div>
-                                <div className="col-6 mt-3">
-                                <Link to="/all-set" ><button type="button" className="btn btn-primary btn-block">Next</button></Link>
-                                </div>
+                                <br/>
+                                <p className="text-center ">Wrong Email ? <span className="text-primary">click to change</span></p>
                             </div>
-                            <br/>
-                            <p className="text-center ">Wrong Email ? <span className="text-primary">click to change</span></p>
                         </div>
                     </div>
                 </div>
-            </motion.div>
+            </Animate>
 
         )
     }
