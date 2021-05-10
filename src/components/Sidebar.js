@@ -8,11 +8,10 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import { Icon, } from '@material-ui/core';
+import { Avatar, Badge, Icon, withStyles, } from '@material-ui/core';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import SidebarDropdown from './SidebarDropdown';
+import { Link } from 'react-router-dom';
 
 
 const useStyles = makeStyles({
@@ -24,76 +23,126 @@ const useStyles = makeStyles({
     },
 });
 
-export default function SwipeableTemporaryDrawer() {
+export default function Sidebar(props) {
     const classes = useStyles();
-    const [state, setState] = React.useState({
-        top: false,
-        left: false,
-        bottom: false,
-        right: false,
-    });
+    // const [state, setState] = React.useState({
+    //     top: false,
+    //     left: false,
+    //     bottom: false,
+    //     right: false,
+    // });
+    const StyledBadge = withStyles((theme) => ({
+        badge: {
+          backgroundColor: '#44b700',
+          color: '#44b700',
+          boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+          '&::after': {
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            borderRadius: '50%',
+            animation: '$ripple 1.2s infinite ease-in-out',
+            border: '3px solid currentColor',
+            content: '""',
+          },
+        },
+        '@keyframes ripple': {
+          '0%': {
+            transform: 'scale(.8)',
+            opacity: 1,
+          },
+          '100%': {
+            transform: 'scale(5)',
+            opacity: 0,
+          },
+        },
+      }))(Badge);
+    // const toggleDrawer = (anchor, open) => (event) => {
+    //     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    //         return;
+    //     }
 
-    const toggleDrawer = (anchor, open) => (event) => {
-        if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
-        }
-
-        setState({ ...state, [anchor]: open });
-    };
-
+    //     setState({ ...state, [anchor]: open });
+    // };
+    
     const list = (anchor) => (
         <div
             className={clsx(classes.list, {
                 [classes.fullList]: anchor === 'top' || anchor === 'bottom',
             })}
             role="presentation"
-            
+
         >
+            <div className="sidenav-top">
+                <div className="sidenav-logo">
+                    {/* <img className="w-100" src="./assets/img/abhijeet.jpeg" alt="" /> */}
+                    <StyledBadge
+                        overlap="circle"
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                        }}
+                        variant="dot"
+
+                    >
+                        <Avatar style={{height: "100%" , width: "100%"}} alt="Remy Sharp" src="./assets/img/abhijeet.jpeg" />
+                    </StyledBadge>
+                </div>
+                <p className="sidenav-text text-center text-white text-uppercase">Abhijeet Kumar</p>
+                <div className="d-flex justify-content-between text-white">
+                    <span className="d-inline-block">
+                        <i className="far fa-eye"></i> 10,652
+                    </span>
+                    <span className="d-inline-block">
+                        <i className="fas fa-fire"></i> 1,782
+                    </span>
+
+                </div>
+            </div>
             <List
                 subheader={
                     <ListSubheader component="div" id="nested-list-subheader">
-                        Nested List Items
-        </ListSubheader>
+                       General
+                    </ListSubheader>
                 }
             >
                 {[
                     {
-                        title: 'Inbox',
-                        icon: <Icon className="fas fa-check" />,
+                        title: 'Dashboard',
+                        link : "/dashboard",
+                        icon: <Icon className="fas fa-tachometer-alt" />,
                         dropdown: false,
                     },
                     {
-                        title: 'Inbox',
-                        icon: <Icon className="fas fa-check" />,
+                        title: 'Mock Test',
+                        link : "/mock-test",
+                        icon: <Icon className="fas fa-book" />,
                         dropdown: false,
                     },
                     {
-                        title: 'Inbox',
-                        icon: <Icon className="fas fa-check" />,
+                        title: 'Scheduled Test',
+                        link : "/scheduled-test",
+                        icon: <Icon className="fas fa-book-reader" />,
                         dropdown: false,
                     },
                     {
-                        title: 'Inbox',
-                        icon: <Icon className="fas fa-check" />,
+                        title: 'Sample Papers',
+                        icon: <Icon className="fas fa-file-invoice" />,
                         dropdown: true,
                         dropItems: [
                             {
-                                title: 'Inbox',
-                                icon: <Icon className="fas fa-check" />,
+                                title: 'Sample paper Test',
+                                link : "sample-paper-test",
+                                icon: <Icon className="fas fa-circle-notch" />,
                             },
                             {
-                                title: 'Inbox',
-                                icon: <Icon className="fas fa-check" />,
+                                title: 'Sample papers',
+                                link : "sample-paper-test",
+                                icon: <Icon className="fas fa-circle-notch" />,
                             },
-                            {
-                                title: 'Inbox',
-                                icon: <Icon className="fas fa-check" />,
-                            },
-                            {
-                                title: 'Inbox',
-                                icon: <Icon className="fas fa-check" />,
-                               
-                            },
+                           
 
                         ]
                     },
@@ -101,20 +150,23 @@ export default function SwipeableTemporaryDrawer() {
                 ].map((item, index) => {
                     if (item.dropdown) {
 
-                        return <SidebarDropdown 
-                        toggleDrawer={(toggleDrawer)}
-                        anchor={anchor}
-                        dropItems={item.dropItems} title={item.title} index={index}  icon= {item.icon} />
-                        
+                        return <SidebarDropdown
+                            toggleDrawer={(props.toggleDrawer)}
+                            anchor={anchor}
+                            path={props.path}
+                            dropItems={item.dropItems} title={item.title} index={index} icon={item.icon} />
+                            
 
                     } else {
-                        return <ListItem 
-                        onClick={toggleDrawer(anchor, false)}
-                        onKeyDown={toggleDrawer(anchor, false)}
-                        button key={index}>
-                            <ListItemIcon style={{ color: "var(--primary)" }}>{item.icon} </ListItemIcon>
-                            <ListItemText primary={item.title} />
-                        </ListItem>
+                        return <Link to={props.path + item.link}>
+                            <ListItem
+                                onClick={props.toggleDrawer(anchor, false)}
+                                onKeyDown={props.toggleDrawer(anchor, false)}
+                                button key={index}>
+                                <ListItemIcon style={{ color: "var(--primary)" }}>{item.icon} </ListItemIcon>
+                                <ListItemText primary={item.title} />
+                            </ListItem>
+                        </Link>
 
                     }
                 })}
@@ -123,35 +175,84 @@ export default function SwipeableTemporaryDrawer() {
             <List
                 subheader={
                     <ListSubheader component="div" id="nested-list-subheader">
-                        Nested List Items
-        </ListSubheader>
+                        Resourses
+                    </ListSubheader>
                 }
             >
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
+                {[
+                    {
+                        title: 'Syllabus',
+                        link : "/syllabus",
+                        icon: <Icon className="fas fa-book-open" />,
+                        dropdown: false,
+                    },
+                     {
+                       title: 'Collegus',
+                        link : "/collegus",
+                        icon: <Icon className="fas fa-user-friends" />,
+                        dropdown: false,
+                    },
+                     {
+                       title: 'Notice Booard',
+                        link : "/notice",
+                        icon: <Icon className="fas fa-sticky-note" />,
+                        dropdown: false,
+                    },
+                     {
+                       title: 'Team',
+                        link : "/team",
+                        icon: <Icon className="fas fa-users" />,
+                        dropdown: false,
+                    },
+                     {
+                       title: 'About Us',
+                        link : "/about",
+                        icon: <Icon className="fas fa-info-circle" />,
+                        dropdown: false,
+                    },
+                    
+
+                ].map((item, index) => {
+                    if (item.dropdown) {
+
+                        return <SidebarDropdown
+                            toggleDrawer={(props.toggleDrawer)}
+                            anchor={anchor}
+                            path={props.path}
+                            dropItems={item.dropItems} title={item.title} index={index} icon={item.icon} />
+                            
+
+                    } else {
+                        return <Link to={props.path + item.link}>
+                            <ListItem
+                                onClick={props.toggleDrawer(anchor, false)}
+                                onKeyDown={props.toggleDrawer(anchor, false)}
+                                button key={index}>
+                                <ListItemIcon style={{ color: "var(--primary)" }}>{item.icon} </ListItemIcon>
+                                <ListItemText primary={item.title} />
+                            </ListItem>
+                        </Link>
+
+                    }
+                })}
             </List>
         </div>
     );
 
     return (
         <div>
-            {['left'].map((anchor) => (
-                <React.Fragment key={anchor}>
-                    <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+                <React.Fragment key={'left'}>
+                    {/* <Button onClick={props.toggleDrawer('left', true)}>{'left'}</Button> */}
                     <SwipeableDrawer
-                        anchor={anchor}
-                        open={state[anchor]}
-                        onClose={toggleDrawer(anchor, false)}
-                        onOpen={toggleDrawer(anchor, true)}
+                        anchor={'left'}
+                        open={props.open}
+                        onClose={props.toggleDrawer('left', false)}
+                        onOpen={props.toggleDrawer('left', true)}
                     >
-                        {list(anchor)}
+                        {list('left')}
                     </SwipeableDrawer>
                 </React.Fragment>
-            ))}
+
         </div>
     );
 }

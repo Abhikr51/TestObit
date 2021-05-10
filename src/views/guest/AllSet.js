@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 import Animate from '../../components/Animate';
 
 export default class AllSet extends Component {
@@ -6,7 +7,6 @@ export default class AllSet extends Component {
         super(props);
         this.state ={
             imageSource : "./assets/img/user.png",
-            url : ""
         }
     }
     
@@ -16,20 +16,17 @@ export default class AllSet extends Component {
         return (
             <Animate className="wrapper d-flex align-items-center">
                     <div className="container-fluid ">
-                    <p className="text-right text-primary mr-3">Skip &nbsp;&nbsp;<i class="fas fa-caret-right"></i> </p>
+                    <Link to="/student/dashboard" className="text-right text-primary d-block mr-3">Skip &nbsp;&nbsp;<i class="fas fa-caret-right"></i> </Link>
                         <div className>
                             <div className>
                                 <h2 className="font-weight-light text-center"> You are all set.</h2>
                                 <div className="row justify-content-center my-5">
                                     <div className="col-12 ">
                                         <div className="upload-avatar">
-                                            {/* <label htmlFor="upload-pic" >
-
-                                            </label> */}
-                                            <label htmlFor="upload-pic" >
-                                            <div htmlFor="upload-pic" className="upload-icon">
+                                            <label htmlFor="upload-pic"  className="upload-icon">
                                             <i class="fas fa-camera fa-2x"></i>
-                                            </div>
+                                            </label>
+                                            <label style={{borderRadius : "inherit", overflow : 'hidden' , display : "block" ,width : "100%", height: "100%"}}  htmlFor="upload-pic" >
                                                 <img width="100%" src={this.state.imageSource} alt />
                                             </label>
                                         </div>
@@ -39,7 +36,7 @@ export default class AllSet extends Component {
                                     {
                                         (this.state.imageSource !== "./assets/img/user.png") ? 
                                         <div className="col-12 mt-1">
-                                            <button type="button" onClick={()=>{this.props.history.push("/student")}} className="btn btn-primary btn-block">Upload &amp; Finish</button>
+                                            <button type="button" onClick={()=>{this.props.history.push("/student/dashboard")}} className="btn btn-primary btn-block">Upload &amp; Finish</button>
                                         </div>
                                         : ""
                                     }

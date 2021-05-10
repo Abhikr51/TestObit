@@ -5,6 +5,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import { List } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 export default function SidebarDropdown(props) {
     const [open, setOpen] = React.useState(false);
 
@@ -22,13 +23,15 @@ export default function SidebarDropdown(props) {
                 <List component="div" disablePadding>
                     {
                         props.dropItems.map((dropItem, dropIndex) => (
-                            <ListItem 
-                            onClick={props.toggleDrawer(props.anchor, false)}
-                            onKeyDown={props.toggleDrawer(props.anchor, false)}
-                            button key={dropIndex}>
-                                <ListItemIcon style={{ color: "var(--primary)" }}>{dropItem.icon} </ListItemIcon>
-                                <ListItemText primary={dropItem.title} />
-                            </ListItem>
+                            <Link to={props.path + dropItem.link}>
+                                <ListItem 
+                                onClick={props.toggleDrawer(props.anchor, false)}
+                                onKeyDown={props.toggleDrawer(props.anchor, false)}
+                                button key={dropIndex}>
+                                    <ListItemIcon style={{ color: "var(--primary)" }}>{dropItem.icon} </ListItemIcon>
+                                    <ListItemText primary={dropItem.title} />
+                                </ListItem>
+                            </Link> 
                         ))
                     }
 

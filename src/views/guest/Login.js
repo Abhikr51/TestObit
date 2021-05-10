@@ -17,15 +17,15 @@ export default class Login extends Component {
     }
     componentDidMount() {
         validate('login-validation');
-        
+
     }
     render() {
 
         return (
             <Animate className="wrapper d-flex align-items-center">
-             
 
-                <div  className="card">
+
+                <div className="card">
                     <div className="card-body">
                         <div className="login-logo">
                             <img className="w-100" src="./assets/img/logo-white.png" alt />
@@ -65,6 +65,7 @@ export default class Login extends Component {
                             </div>
 
                         </form>
+                        
                     </div>
                 </div>
             </Animate>
