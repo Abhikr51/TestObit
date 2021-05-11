@@ -60,15 +60,6 @@
     /* font-family: sans-serif; */
 }
 
-.splash-wrapper{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -10;
-    background: blueviolet;
-    background: url("../img/banner.png");
-    background-size: cover;
-}
 .wrapper{
     position: absolute;
     width: 100%;
@@ -77,51 +68,6 @@
     padding: 12px;
 }
 
-.splash-container{
-    position: absolute;
-    height: 75%;
-    width: 100%;
-    top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px;
-}
-.creator-container {
-    position: absolute;
-    height:35%;
-    width: 100%;
-    bottom: 0;
-}
-.creator-avatar {
-    width: 65px;
-    overflow: hidden;
-    border: 2px solid #ffffff;
-    background: white;
-    margin: 12px auto;
-    height: 65px;
-    border-radius: 60px;
-}
-.avatar-name{
-    text-align: center;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-.text-over-line {
-    position: relative;
-    top: 30px;
-}
-.text-over-line span {
-    display: inline-block;
-    padding: 0 12px;
-    color: #adadad;
-    font-family: verdana;
-    background: inherit;
-}
-.text-over-line hr{
-    position: relative;
-    top: -30px;
-    z-index: -1;
-}
 .topbar {
     height: 55px;
     position: fixed;
@@ -130,7 +76,7 @@
     width: 100%;
     background: var(--primary);
     /* margin: -12px; */
-    margin-bottom: 20px;
+    margin-bottom:16px;
     /* border-bottom-right-radius: 50px;
     border-bottom-left-radius: 50px; */
     z-index: 100;
@@ -331,3 +277,116 @@ ul a{
         /* opacity: 0; */
     }
 }
+/* loader */
+
+
+#inner-loader .loader-overlay{
+    position: fixed;
+    background: var(--primary);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050;
+ }
+ #inner-loader h1 {
+    color: #FFFFFF;
+    text-align: center;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    font-size: 20px;
+    position: relative;
+  }
+  
+  #inner-loader h1:after {
+    position: absolute;
+    content: "";
+    -webkit-animation: Dots 2s cubic-bezier(0, .39, 1, .68) infinite;
+    animation: Dots 2s cubic-bezier(0, .39, 1, .68) infinite;
+  }
+  
+  #inner-loader .loader {
+    margin: 5% auto 30px;
+  }
+  
+  #inner-loader .book {
+    border: 4px solid #FFFFFF;
+    width: 60px;
+    height: 45px;
+    position: relative;
+    perspective: 150px;
+  }
+  
+  #inner-loader .page {
+    display: block;
+    width: 30px;
+    height: 45px;
+    border: 4px solid #FFFFFF;
+    border-left: 1px solid white;
+    margin: 0;
+    position: absolute;
+    right: -4px;
+    top: -4px;
+    overflow: hidden;
+    background: var(--primary);
+    transform-style: preserve-3d;
+    -webkit-transform-origin: left center;
+    transform-origin: left center;
+  }
+  
+  #inner-loader .book .page:nth-child(1) {
+    -webkit-animation: inneer-pageTurn 1.2s cubic-bezier(0, .39, 1, .68) 1.6s infinite;
+    animation: inneer-pageTurn 1.2s cubic-bezier(0, .39, 1, .68) 1.6s infinite;
+  }
+  
+  #inner-loader .book .page:nth-child(2) {
+    -webkit-animation: inneer-pageTurn 1.2s cubic-bezier(0, .39, 1, .68) 1.45s infinite;
+    animation: inneer-pageTurn 1.2s cubic-bezier(0, .39, 1, .68) 1.45s infinite;
+  }
+  
+  #inner-loader .book .page:nth-child(3) {
+    -webkit-animation: inneer-pageTurn 1.2s cubic-bezier(0, .39, 1, .68) 1.2s infinite;
+    animation: inneer-pageTurn 1.2s cubic-bezier(0, .39, 1, .68) 1.2s infinite;
+  }
+  
+  
+  /* Page turn */
+  
+  @-webkit-keyframes inner-pageTurn {
+    0% {
+      -webkit-transform: rotateY( 0deg);
+      transform: rotateY( 0deg);
+    }
+    20% {
+      background: var(--primary);
+    }
+    40% {
+      background: var(--primary);
+      -webkit-transform: rotateY( -180deg);
+      transform: rotateY( -180deg);
+    }
+    100% {
+      background: var(--primary);
+      -webkit-transform: rotateY( -180deg);
+      transform: rotateY( -180deg);
+    }
+  }
+  
+  @keyframes inner-pageTurn {
+    0% {
+      transform: rotateY( 0deg);
+    }
+    20% {
+      background: var(--primary);
+    }
+    40% {
+      background: var(--primary);
+      transform: rotateY( -180deg);
+    }
+    100% {
+      background: var(--primary);
+      transform: rotateY( -180deg);
+    }
+  }
+  

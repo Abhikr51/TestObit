@@ -12,7 +12,7 @@ export const redirect = (user_type)=>{
 }
 export const validate = (classname) =>{
     (() => {
-        'use strict';
+        // 'use strict';
 
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
         const forms = document.querySelectorAll( '.'+classname);
@@ -28,4 +28,12 @@ export const validate = (classname) =>{
             }, false);
         });
     })();
+}
+export const LOADERON = ()=>{
+    document.getElementById("loader").style.opacity = "1"
+    document.getElementById("loader").style.visibility = "visible"
+}
+export const LOADEROFF = ()=>{
+    document.getElementById("loader").style.opacity = "0"
+    document.getElementById("loader").style.visibility = "hidden"
 }

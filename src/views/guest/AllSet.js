@@ -27,7 +27,7 @@ export default class AllSet extends Component {
                                             <i class="fas fa-camera fa-2x"></i>
                                             </label>
                                             <label style={{borderRadius : "inherit", overflow : 'hidden' , display : "block" ,width : "100%", height: "100%"}}  htmlFor="upload-pic" >
-                                                <img width="100%" src={this.state.imageSource} alt />
+                                                <img width="100%" src={this.state.imageSource} alt="" />
                                             </label>
                                         </div>
                                         <input onChange={(e)=>{this.setState({imageSource : e.target.files[0] ? URL.createObjectURL(e.target.files[0]) : "./assets/img/user.png"})}} className="d-none" type="file" name="" id="upload-pic"/>

@@ -8,45 +8,110 @@
   <meta name="theme-color" content="#000000" />
   <meta name="description" content="Onlines test exam prepartion for college" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-  <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
+
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   <link rel="stylesheet" href="%PUBLIC_URL%/assets/fontawesome/css/all.css">
   <!-- MDB -->
   <link href="%PUBLIC_URL%/assets/css/bootstrap.min.css" rel="stylesheet" />
   <!-- <link href="%PUBLIC_URL%/assets/fonts/Poppins-Light.ttf" rel="stylesheet"> -->
   <link href="%PUBLIC_URL%/assets/css/mdb.min.css" rel="stylesheet" />
-  <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+  <link href="%PUBLIC_URL%/pre.css" rel="stylesheet" />
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
   <title>Test O Bit</title>
 </head>
 
 <body>
+  <!-- Spash Screen code -->
+  
+    <div id="splash" style="visibility: visible; transition: all .6s ease .6s;" class=" splash-wrapper">
+      <div class="splash-container">
+        <div class="splash-logo">
+          <img class="w-100" src="%PUBLIC_URL%assets/img/logo-white.png" alt="">
+  
+        </div>
+      </div>
+      <div class="creator-container container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-9">
+            <p class="text-center text-white">You are good to go...</p>
+            <div class="linear-activity">
+              <div class="indeterminate"></div>
+            </div>
+          </div>
+        </div>
+        <table width="100%">
+          <tr>
+            <td>
+              <hr class="bg-white">
+            </td>
+            <td width="100px" style="text-align: center; color: white; font-family: verdana;">Creators</td>
+            <td>
+              <hr class="bg-white">
+            </td>
+          </tr>
+        </table>
+  
+        <div class="row ">
+          <div class="col-3 px-1">
+            <div class="creator-avatar">
+              <img width="100%" src="%PUBLIC_URL%assets/img/abhijeet.jpeg" alt="">
+            </div>
+            <p class="avatar-name text-white">
+              Abhijeet
+            </p>
+          </div>
+          <div class="col-3 px-1">
+            <div class="creator-avatar">
+              <img width="100%" src="%PUBLIC_URL%assets/img/sneha.jpeg" alt="">
+            </div>
+            <p class="avatar-name text-white">
+              Sneha
+            </p>
+          </div>
+          <div class="col-3 px-1">
+            <div class="creator-avatar">
+              <img width="100%" src="%PUBLIC_URL%assets/img/manisha.jpeg" alt="">
+            </div>
+            <p class="avatar-name text-white">
+              Manisha
+            </p>
+          </div>
+          <div class="col-3 px-1">
+            <div class="creator-avatar">
+              <img width="100%" src="%PUBLIC_URL%assets/img/soumya.jpg" alt="">
+            </div>
+            <p class="avatar-name text-white">
+              Soumya
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  <!-- Spash Screen end -->
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
-  <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+  <div style="visibility: hidden; transition: .6s ease-in-out;" id="loader">
+    <div class="loader-overlay">
+      <div class="loader book">
+        <figure class="page"></figure>
+        <figure class="page"></figure>
+        <figure class="page"></figure>
+      </div>
+    </div>
+  </div>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
 </body>
 <!-- MDB -->
 <script type="text/javascript" src="%PUBLIC_URL%/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="%PUBLIC_URL%/assets/js/popper.min.js"></script>
 <script type="text/javascript" src="%PUBLIC_URL%/assets/js/mdb.min.js"></script>
+<script>
+  setTimeout(() => {
+    document.getElementById('splash').style.left = "-100%"
+  }, 5000)
+</script>
 
 </html>

@@ -38,7 +38,9 @@ export default class Dashboard extends Component {
 
                 <Topbar text={<span><i className="fas fa-tachometer-alt"></i> Dashboard</span>}>
                     <IconButton onClick={this.props.toggleDrawer('left', true)}> <i style={{ fontSize: "20px" }} className="fas fa-bars  text-white"></i> </IconButton >
+                    <IconButton className="float-right" onClick={this.props.togglePopper}> <i style={{ fontSize: "20px" }} className="fas fa-ellipsis-v  text-white"></i> </IconButton >
                 </Topbar>
+
                 <Animate>
                     <div className="wrapper">
                         <div className="card my-3">

@@ -7,12 +7,12 @@ export default class Page404 extends Component {
     render() {
         return (
             <div>
-                {/* <Topbar text={<span><i className="fas fa-sad-tear"></i> Access denied</span>}>
+                <Topbar text={<span><i className="fas fa-sad-tear"></i> Access denied</span>}>
                     {(this.props.toggleDrawer) ?
                         <IconButton onClick={this.props.toggleDrawer('left', true)}> <i style={{ fontSize: "20px" }} className="fas fa-bars  text-white"></i> </IconButton >
                         : ""
                     }
-                </Topbar>*/}
+                </Topbar>
                 <Animate>
                     <div className="wrapper">
                         basename  : {window.location.origin} <br />
@@ -26,8 +26,7 @@ export default class Page404 extends Component {
                         </div>
                         <h2 className="text-center">Under Development</h2>
                     </div>
-                </Animate> 
-                not found
+                </Animate>
             </div>
         )
     }

@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from "framer-motion"
-import { pageTransitions, pageVariants } from '../../globals/__gobal_vars'
-import { validate } from '../../globals/__global_funcs'
+import { LOADEROFF, LOADERON, redirect, validate } from '../../globals/__global_funcs'
 import Animate from '../../components/Animate'
-export default class Login extends Component {
+import { setLogin } from '../../redux/actions/AuthActions'
+import { connect } from 'react-redux'
+import { rootURL } from '../../globals/__gobal_vars'
+import axios from "axios"
+class Login extends Component {
 
     state = {
         username: "",
@@ -13,10 +15,42 @@ export default class Login extends Component {
     }
     loginSubmit = (event) => {
         event.preventDefault();
-        console.log("run");
+        if (!(this.state.username == "" || this.state.username == null || this.state.password == "" || this.state.password == null)) {
+            LOADERON();
+            let config = {
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            }
+            axios.post(`${rootURL}/login`, {
+                email : this.state.username,
+                password : this.state.password,
+            },config)
+                .then(res => {
+                    localStorage.setItem('token', res.data.access_token);
+                    localStorage.setItem('email', res.data.user.email);
+                    localStorage.setItem('id', res.data.user.id);
+                    localStorage.setItem('user_type', res.data.user.user_type);
+                    this.props.setLogin(res.data.user);
+                    this.props.history.push(redirect(res.data.user.user_type));
+                    LOADEROFF();
+                }).catch(err => {
+                    // if (err.message != "Network Error") {
+                        
+                    //     alert("Incorrect Email Or Password", "Check Credentials");
+                    // } else {
+                    //     // alert(err.message, "Check You Have activate internet Connection");
+                    //     alert(err);
+                    // }
+                    alert(err);
+                    console.log(err)
+                    LOADEROFF();
+                });
+        }
     }
     componentDidMount() {
         validate('login-validation');
+        
 
     }
     render() {
@@ -41,15 +75,15 @@ export default class Login extends Component {
                         <form className="login-validation" noValidate onSubmit={this.loginSubmit}>
                             <div className="row justify-content-center">
                                 <div className="col-11 my-1">
-                                    <label htmlFor>Email / Phone</label>
+                                    <label >Email</label>
                                     <div className="input-group flex-nowrap mt-1">
                                         <span className="input-group-text" id="addon-wrapping"><i className="fas fa-user-shield text-primary" /></span>
-                                        <input onChange={(e) => { this.setState({ username: e.target.value }) }} value={this.state.username} type="text" className="form-control" placeholder="Enter email / phone" required aria-label="Username" aria-describedby="addon-wrapping" />
+                                        <input onChange={(e) => { this.setState({ username: e.target.value }) }} value={this.state.username} type="text" className="form-control" placeholder="Enter email" required aria-label="Username" aria-describedby="addon-wrapping" />
                                         {/* <div class="invalid-feedback"><i class="fas fa-info-circle"></i> Field is required.</div> */}
                                     </div>
                                 </div>
                                 <div className="col-11 my-1">
-                                    <label htmlFor>Password</label>
+                                    <label >Password</label>
                                     <div className="input-group flex-nowrap mt-1">
                                         <span className="input-group-text" id="addon-wrapping"><i className="fas fa-key text-primary" /></span>
                                         <input onChange={(e) => { this.setState({ password: e.target.value }) }} value={this.state.password} type="password" className="form-control" placeholder="Enter Password" required aria-label="Password" aria-describedby="addon-wrapping" />
@@ -73,3 +107,4 @@ export default class Login extends Component {
         )
     }
 }
+export default connect(null,{setLogin})(Login)
