@@ -56,7 +56,7 @@ export default class Modal extends Component {
                         <div style={this.overlayModal}>
                             <div  {...this.props} style={{ ...this.modalBody, ...this.props.style }} className={this.props.className}>
                                 <div className="container-fluid">
-                                    <div style={{ position: "sticky", top: 0 }} className="row card-header bg-white p-1">
+                                    <div style={{ position: "sticky", top: 0 }} className="row card-header bg-white  px-1 py-2">
                                         <h5 className=" col-9 mb-2 font-weight-light">{this.props.header} </h5>
                                         <div className="col-3 mb-2 ">
                                             <button className="btn btn-danger float-right btn-sm ripple" onClick={() => { this.props.onClose() }}> <i className="fas fa-times"></i> </button>
