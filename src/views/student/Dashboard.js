@@ -143,7 +143,7 @@ export default class Dashboard extends Component {
                                         
                                         <div style={{borderTop : "1px solid #80808057"}} className="col-11 my-2">
 
-                                            <h3 className="font-weight-light">AI forensic test</h3>
+                                            <h4 className="font-weight-light">AI forensic test</h4>
                                             <p className="text-muted">Upcoming...</p>
                                         </div>
                                     </div>
@@ -158,7 +158,7 @@ export default class Dashboard extends Component {
                                         
                                         <div style={{borderTop : "1px solid #80808057"}} className="col-11 my-2">
 
-                                            <h3 className="font-weight-light">Digital Logic pre test </h3>
+                                            <h4 className="font-weight-light">Digital Logic pre test </h4>
                                             <p className="text-muted">Passed away...</p>
                                         </div>
                                     </div>
@@ -172,7 +172,7 @@ export default class Dashboard extends Component {
                                         
                                         <div style={{borderTop : "1px solid #80808057"}} className="col-11 my-2">
 
-                                            <h3 className="font-weight-light">Data Structure self test Lorem, ipsum dolor sit amet consectetur adipisicing.</h3>
+                                            <h4 className="font-weight-light">Data Structure self test Lorem, ipsum dolor sit amet consectetur adipisicing.</h4>
                                             <p className="text-muted">Missed out...</p>
                                         </div>
                                     </div>

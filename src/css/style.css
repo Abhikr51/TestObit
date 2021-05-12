@@ -81,6 +81,13 @@
     border-bottom-left-radius: 50px; */
     z-index: 100;
 }
+.topbar-long{
+    height: 30%;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    margin-bottom: 70px;
+}
+
 .topbar-text {
     min-width: 173px;
     width: fit-content;
@@ -97,6 +104,10 @@
     position: absolute;
     left: 0;
     right: 0;
+}
+.topbar-long-text{
+    border: 5px solid transparent;
+
 }
 .form-outline .form-control {
     padding: .43em .75em;
@@ -156,9 +167,11 @@
     padding: 12px;
 }
 .sidenav-top {
-    position: relative;
+    position: sticky;
     width: 100%;
     min-height: 111px;
+    z-index: 10;
+    top: 0;
     padding: 12px;
     height: -moz-fit-content;
     height: fit-content;
@@ -229,6 +242,28 @@ ul a{
     overflow: hidden;
     border: 1px solid var(--primary);
     margin: 9px 0px;
+}
+.static-card-box {
+    position: absolute;
+    bottom: -58px;
+    width: 90%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    padding: 10px;
+}
+.static-card {
+    background: #ffffff;
+    height: 24.3vw;
+    margin: auto;
+    padding: 9px;
+    border: 0px solid white;
+    /* border-bottom: 5px solid #432fbf; */
+    border-radius: 13px;
+    box-shadow: 0 0 15px 0px #432fbf40;
+    font-size: 20px;
+    /* text-align: center; */
+    font-weight: 300;
 }
 .bottom-box {
     min-width: 82px;
@@ -390,3 +425,6 @@ ul a{
     }
   }
   
+  .table-sm>:not(caption)>*>* {
+    padding: 0.5rem 0.6em;
+}

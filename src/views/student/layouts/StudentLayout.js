@@ -6,6 +6,12 @@ import Sidebar from '../../../components/Sidebar'
 import { setLogout } from '../../../redux/actions/AuthActions';
 import Page404 from '../../student/Page404';
 import Dashboard from '../Dashboard';
+import MockTest from '../MockTest';
+import Notice from '../Notice';
+import PracticeTest from '../PracticeTest';
+import SamplePaper from '../SamplePaper';
+import SamplePaperTest from '../SamplePaperTest';
+import Syllabus from '../Syllabus';
 
 class StudentLayout extends Component {
     state = {
@@ -47,6 +53,12 @@ class StudentLayout extends Component {
                 </Menu>
                 <Switch>
                     <Route exact path="/student/dashboard" render={(p) => (<Dashboard {...p} toggleDrawer={this.toggleDrawer} togglePopper={this.togglePopper} />)} />
+                    <Route  path="/student/mock-test" render={(p) => (<MockTest {...p} toggleDrawer={this.toggleDrawer} togglePopper={this.togglePopper} />)} />
+                    <Route  path="/student/sample-paper-test" render={(p) => (<SamplePaperTest {...p} toggleDrawer={this.toggleDrawer} togglePopper={this.togglePopper} />)} />
+                    <Route  path="/student/sample-paper" render={(p) => (<SamplePaper {...p} toggleDrawer={this.toggleDrawer} togglePopper={this.togglePopper} />)} />
+                    <Route  path="/student/practice-test" render={(p) => (<PracticeTest {...p} toggleDrawer={this.toggleDrawer} togglePopper={this.togglePopper} />)} />
+                    <Route  path="/student/notice" render={(p) => (<Notice {...p} toggleDrawer={this.toggleDrawer} togglePopper={this.togglePopper} />)} />
+                    <Route  path="/student/syllabus" render={(p) => (<Syllabus {...p} toggleDrawer={this.toggleDrawer} togglePopper={this.togglePopper} />)} />
                     <Route render={(p) => (<Page404 {...p} toggleDrawer={this.toggleDrawer} togglePopper={this.togglePopper} />)} />
                 </Switch>
             </div>

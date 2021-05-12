@@ -45,7 +45,7 @@ export default function App(props) {
         </React.Fragment>
       case 2:
         return (<React.Fragment>
-          <AuthRoute path="/student" component={StudentLayout} />
+          <Route path="/student" component={StudentLayout} />
           <AuthRoute path="/all-set" component={AllSet} />
         </React.Fragment>)
       case 0:

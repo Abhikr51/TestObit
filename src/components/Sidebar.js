@@ -11,7 +11,7 @@ import { Avatar, Badge, Icon, withStyles, } from '@material-ui/core';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import SidebarDropdown from './SidebarDropdown';
 import { Link } from 'react-router-dom';
-
+import {connect} from "react-redux"
 
 const useStyles = makeStyles({
     list: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Sidebar(props) {
+function Sidebar(props) {
     const classes = useStyles();
     // const [state, setState] = React.useState({
     //     top: false,
@@ -89,7 +89,7 @@ export default function Sidebar(props) {
                         <Avatar style={{height: "100%" , width: "100%"}} alt="Remy Sharp" src="./assets/img/abhijeet.jpeg" />
                     </StyledBadge>
                 </div>
-                <p className="sidenav-text text-center text-white text-uppercase">Abhijeet Kumar</p>
+                <p className="sidenav-text text-center text-white ">{(props.user.name) ?? "Loading.."}</p>
                 <div className="d-flex justify-content-between text-white">
                     <span className="d-inline-block">
                         <i className="far fa-eye"></i> 10,652
@@ -121,6 +121,12 @@ export default function Sidebar(props) {
                         dropdown: false,
                     },
                     {
+                        title: 'Practice Test',
+                        link : "/practice-test",
+                        icon: <Icon className="fas fa-pencil-ruler" />,
+                        dropdown: false,
+                    },
+                    {
                         title: 'Scheduled Test',
                         link : "/scheduled-test",
                         icon: <Icon className="fas fa-book-reader" />,
@@ -133,12 +139,12 @@ export default function Sidebar(props) {
                         dropItems: [
                             {
                                 title: 'Sample paper Test',
-                                link : "sample-paper-test",
+                                link : "/sample-paper-test",
                                 icon: <Icon className="fas fa-circle-notch" />,
                             },
                             {
                                 title: 'Sample papers',
-                                link : "sample-paper-test",
+                                link : "/sample-paper",
                                 icon: <Icon className="fas fa-circle-notch" />,
                             },
                            
@@ -255,3 +261,9 @@ export default function Sidebar(props) {
         </div>
     );
 }
+
+const mapStateToProps = (state) => ({
+    user : state.auth.user
+})
+
+export default connect(mapStateToProps,null)(Sidebar)
