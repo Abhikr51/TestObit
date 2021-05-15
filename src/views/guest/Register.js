@@ -37,8 +37,8 @@ class Register extends Component {
             password: false,
             c_password: false,
         },
-        semesterList : [],
-        streamList : [],
+        semesterList: [],
+        streamList: [],
     }
     validateEmail = (email) => {
         const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -79,14 +79,16 @@ class Register extends Component {
     }
     registerSubmit = (event) => {
         event.preventDefault();
+
         if (this.isValid()) {
-            axios.post(`${rootURL}/register`,{
-                "name" : this.state.formdata.name,
-                "email" : this.state.formdata.email,
-                "dob" : this.state.formdata.dob,
-                "gender" : this.state.formdata.gender,
-                "semester" : this.state.formdata.semester,
-                "phone" : this.state.formdata.phone,
+            LOADERON();
+            axios.post(`${rootURL}/register`, {
+                "name": this.state.formdata.name,
+                "email": this.state.formdata.email,
+                "dob": this.state.formdata.dob,
+                "gender": this.state.formdata.gender,
+                "semester": this.state.formdata.semester,
+                "phone": this.state.formdata.phone,
                 "stream": this.state.formdata.stream,
                 "session": this.state.formdata.session,
                 "password": this.state.formdata.password,
@@ -99,10 +101,12 @@ class Register extends Component {
                 localStorage.setItem('user_type', res.data.user.user_type);
                 // this.setState({ progress: false })
                 this.props.setLogin(res.data.user);
+                LOADEROFF();
                 this.props.history.push('/all-set');
-
+                
             }).catch((err) => {
                 console.log(err);
+                LOADEROFF();
             })
         }
     }
@@ -115,182 +119,178 @@ class Register extends Component {
         validate("register-form")
         LOADERON();
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-        let stream = axios.post(rootURL+"/getStream",{}).then((res)=>{
+        let stream = axios.post(rootURL + "/getStream", {}).then((res) => {
             //success
             this.setState({
-                streamList : res.data.data
+                streamList: res.data.data
             })
-        }).catch((err)=>{
+            LOADEROFF();
+        }).catch((err) => {
             LOADEROFF();
         })
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-        let semester = axios.post(rootURL+"/getSemester",{}).then((res)=>{
+        let semester = axios.post(rootURL + "/getSemester", {}).then((res) => {
             //success
             this.setState({
-                semesterList : res.data.data
+                semesterList: res.data.data
             })
-        }).catch((err)=>{
+            LOADEROFF();
+        }).catch((err) => {
             LOADEROFF();
         })
-        Promise.all([stream,semester]).then(()=>{
-           LOADEROFF();
-        })
+        // Promise.all([stream, semester]).then(() => {
+        //     LOADEROFF();
+        // })
     }
     render() {
         return (
-            <>
+            <div className="wrapper mb-3">
                 <Topbar text="Register"> </Topbar>
-                <Animate>
-                    <div className="wrapper mb-3">
-                        <div className="container-fluid">
-                            <div className="card">
-                                <div className="card-body">
-                                    <form className="register-form" onSubmit={this.registerSubmit} noValidate autoComplete="off">
+                <div className="container-fluid">
+                    <div className="card">
+                        <div className="card-body">
+                            <form className="register-form" onSubmit={this.registerSubmit} noValidate autoComplete="off">
 
-                                        <div className="row justify-content-center">
-                                            <div className="col-12 my-1">
-                                                <TextField
-                                                    value={this.state.formdata.name}
-                                                    onChange={(e) => { this.setData(e, 'name') }}
-                                                    error={this.state.errors.name}
-                                                    helperText={(this.state.errors.name) ? "Field is required" : ""}
+                                <div className="row justify-content-center">
+                                    <div className="col-12 my-1">
+                                        <TextField
+                                            value={this.state.formdata.name}
+                                            onChange={(e) => { this.setData(e, 'name') }}
+                                            error={this.state.errors.name}
+                                            helperText={(this.state.errors.name) ? "Field is required" : ""}
 
 
-                                                    // InputProps={{
-                                                    // startAdornment: (
-                                                    //     <InputAdornment position="start">
-                                                    //     <i className="fas fa-eye text-primary"></i>
-                                                    //     </InputAdornment>
-                                                    // ),
-                                                    // }} 
-                                                    label="Name" />
-                                            </div>
-                                            <div className="col-12 my-1">
-                                                <TextField
-                                                    value={this.state.formdata.dob}
-                                                    onChange={(e) => { this.setData(e, 'dob') }}
-                                                    error={this.state.errors.dob}
-                                                    helperText={(this.state.errors.dob) ? "Field is required" : ""}
-                                                    id="date" type="date" placeholder="select date" label="Date of birth" />
+                                            // InputProps={{
+                                            // startAdornment: (
+                                            //     <InputAdornment position="start">
+                                            //     <i className="fas fa-eye text-primary"></i>
+                                            //     </InputAdornment>
+                                            // ),
+                                            // }} 
+                                            label="Name" />
+                                    </div>
+                                    <div className="col-12 my-1">
+                                        <TextField
+                                            value={this.state.formdata.dob}
+                                            onChange={(e) => { this.setData(e, 'dob') }}
+                                            error={this.state.errors.dob}
+                                            helperText={(this.state.errors.dob) ? "Field is required" : ""}
+                                            id="date" type="date" placeholder="select date" label="Date of birth" />
 
-                                            </div>
-                                            <div className="col-12 my-1">
-                                                <FormControl component="fieldset">
-                                                    <FormLabel component="label">Gender</FormLabel>
-                                                    <RadioGroup aria-label="gender" name="gender1" value={this.state.formdata.gender} onChange={(e) => { this.setData(e, 'gender') }}>
-                                                        <FormControlLabel value="male" control={<Radio />} label="Male" />
-                                                        <FormControlLabel value="female" control={<Radio />} label="Female" />
-                                                        <FormControlLabel value="other" control={<Radio />} label="Other" />
+                                    </div>
+                                    <div className="col-12 my-1">
+                                        <FormControl component="fieldset">
+                                            <FormLabel component="label">Gender</FormLabel>
+                                            <RadioGroup aria-label="gender" name="gender1" value={this.state.formdata.gender} onChange={(e) => { this.setData(e, 'gender') }}>
+                                                <FormControlLabel value="male" control={<Radio />} label="Male" />
+                                                <FormControlLabel value="female" control={<Radio />} label="Female" />
+                                                <FormControlLabel value="other" control={<Radio />} label="Other" />
 
-                                                    </RadioGroup>
-                                                </FormControl>
-                                            </div>
+                                            </RadioGroup>
+                                        </FormControl>
+                                    </div>
 
-                                            <div className="col-12 my-1">
-                                                <FormControl error={this.state.errors.semester}>
-                                                    <InputLabel id="semester">Semester</InputLabel>
-                                                    <Select
-                                                        labelId="semester"
-                                                        value={this.state.formdata.semester}
-                                                        onChange={(e) => { this.setState({ formdata: { ...this.state.formdata, semester: e.target.value } }) }}
-                                                        error={this.state.errors.semester}
-                                                        helperText={(this.state.errors.semester) ? "Field is required" : ""}
-                                                    >
-                                                        
-                                                        {
-                                                            this.state.semesterList.map((item,index)=>(
-                                                                <MenuItem key={index} value={item.id}>{item.title}</MenuItem>
-                                                            ))
-                                                        }
-                                                    </Select>
-                                                </FormControl>
-                                            </div>
-                                            <div className="col-12 my-1">
-                                                <TextField
-                                                    value={this.state.formdata.email}
-                                                    onChange={(e) => { this.setData(e, 'email') }}
-                                                    error={this.state.errors.email}
-                                                    helperText={(this.state.errors.email) ? "Email must contains '@' and '.'" : ""}
-                                                    label="Email" />
+                                    <div className="col-12 my-1">
+                                        <FormControl error={this.state.errors.semester}>
+                                            <InputLabel id="semester">Semester</InputLabel>
+                                            <Select
+                                                labelId="semester"
+                                                value={this.state.formdata.semester}
+                                                onChange={(e) => { this.setState({ formdata: { ...this.state.formdata, semester: e.target.value } }) }}
+                                                error={this.state.errors.semester}
+                                                helperText={(this.state.errors.semester) ? "Field is required" : ""}
+                                            >
 
-                                            </div>
-                                            <div className="col-12 my-1">
-                                                <TextField
-                                                    value={this.state.formdata.phone}
-                                                    onChange={(e) => { if(e.target.value.length < 11){this.setData(e, 'phone')}  }}
-                                                    error={this.state.errors.phone}
-                                                    helperText={(this.state.errors.phone) ? "Field is required" : ""}
-                                                    maxLength="10"
-                                                    label="Phone" />
+                                                {
+                                                    this.state.semesterList.map((item, index) => (
+                                                        <MenuItem key={index} value={item.id}>{item.title}</MenuItem>
+                                                    ))
+                                                }
+                                            </Select>
+                                        </FormControl>
+                                    </div>
+                                    <div className="col-12 my-1">
+                                        <TextField
+                                            value={this.state.formdata.email}
+                                            onChange={(e) => { this.setData(e, 'email') }}
+                                            error={this.state.errors.email}
+                                            helperText={(this.state.errors.email) ? "Email must contains '@' and '.'" : ""}
+                                            label="Email" />
 
-                                            </div>
-                                            <div className="col-12 my-1">
+                                    </div>
+                                    <div className="col-12 my-1">
+                                        <TextField
+                                            value={this.state.formdata.phone}
+                                            onChange={(e) => { if (e.target.value.length < 11) { this.setData(e, 'phone') } }}
+                                            error={this.state.errors.phone}
+                                            helperText={(this.state.errors.phone) ? "Field is required" : ""}
+                                            maxLength="10"
+                                            label="Phone" />
 
-                                                <FormControl error={this.state.errors.stream} >
-                                                    <InputLabel id="stream">Stream</InputLabel>
-                                                    <Select
-                                                        labelId="stream"
-                                                        value={this.state.formdata.stream}
-                                                        onChange={(e) => { this.setState({ formdata: { ...this.state.formdata, stream: e.target.value } }) }}
-                                                        error={this.state.errors.stream}
-                                                        helperText={(this.state.errors.stream) ? "Field is required" : ""}
-                                                    >
-                                                        {
-                                                            this.state.streamList.map((item,index)=>(
-                                                                <MenuItem key={index} value={item.id}>{item.title}</MenuItem>
-                                                            ))
-                                                        }
-                                                    </Select>
-                                                </FormControl>
+                                    </div>
+                                    <div className="col-12 my-1">
 
-                                            </div>
-                                            <div className="col-12 my-1">
-                                                <TextField
-                                                    value={this.state.formdata.session}
-                                                    onChange={(e) => { this.setData(e, 'session') }}
-                                                    error={this.state.errors.session}
-                                                    helperText={(this.state.errors.session) ? "Field is required" : ""}
-                                                    label="Session" />
+                                        <FormControl error={this.state.errors.stream} >
+                                            <InputLabel id="stream">Stream</InputLabel>
+                                            <Select
+                                                labelId="stream"
+                                                value={this.state.formdata.stream}
+                                                onChange={(e) => { this.setState({ formdata: { ...this.state.formdata, stream: e.target.value } }) }}
+                                                error={this.state.errors.stream}
+                                                helperText={(this.state.errors.stream) ? "Field is required" : ""}
+                                            >
+                                                {
+                                                    this.state.streamList.map((item, index) => (
+                                                        <MenuItem key={index} value={item.id}>{item.title}</MenuItem>
+                                                    ))
+                                                }
+                                            </Select>
+                                        </FormControl>
 
-                                            </div>
-                                            <div className="col-12 my-1">
-                                                <TextField
-                                                    value={this.state.formdata.password}
-                                                    onChange={(e) => { this.setData(e, 'password') }}
-                                                    error={this.state.errors.password}
-                                                    helperText={(this.state.errors.password) ? "Field is required" : ""}
-                                                    type="password" label="Password" />
+                                    </div>
+                                    <div className="col-12 my-1">
+                                        <TextField
+                                            value={this.state.formdata.session}
+                                            onChange={(e) => { this.setData(e, 'session') }}
+                                            error={this.state.errors.session}
+                                            helperText={(this.state.errors.session) ? "Field is required" : ""}
+                                            label="Session" />
 
-                                            </div>
-                                            <div className="col-12 my-1">
-                                                <TextField
-                                                    value={this.state.formdata.c_password}
-                                                    onChange={(e) => { this.setData(e, 'c_password') }}
-                                                    error={this.state.errors.c_password}
-                                                    helperText={(this.state.errors.c_password) ? "Password mismatche !" : ""}
-                                                    type="password" label="Confirm Password" />
+                                    </div>
+                                    <div className="col-12 my-1">
+                                        <TextField
+                                            value={this.state.formdata.password}
+                                            onChange={(e) => { this.setData(e, 'password') }}
+                                            error={this.state.errors.password}
+                                            helperText={(this.state.errors.password) ? "Field is required" : ""}
+                                            type="password" label="Password" />
 
-                                            </div>
-                                            <div className="col-12">
-                                                {/* <Link to="/verify" > */}
-                                                <button type="submit" className="btn btn-primary btn-block">Register</button>
-                                                {/* </Link> */}
-                                            </div>
-                                            <div className="col-12  mt-3">
-                                                <p className="text-center">Already have an Account ? Go to <Link to="/" > Login </Link> </p>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    </div>
+                                    <div className="col-12 my-1">
+                                        <TextField
+                                            value={this.state.formdata.c_password}
+                                            onChange={(e) => { this.setData(e, 'c_password') }}
+                                            error={this.state.errors.c_password}
+                                            helperText={(this.state.errors.c_password) ? "Password mismatche !" : ""}
+                                            type="password" label="Confirm Password" />
+
+                                    </div>
+                                    <div className="col-12">
+                                        {/* <Link to="/verify" > */}
+                                        <button type="submit" className="btn btn-primary btn-block">Register</button>
+                                        {/* </Link> */}
+                                    </div>
+                                    <div className="col-12  mt-3">
+                                        <p className="text-center">Already have an Account ? Go to <Link to="/" > Login </Link> </p>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
-
-                </Animate>
-            </>
-
+                </div>
+            </div>
         )
     }
 }
 
-export default connect(null,{setLogin})(Register);
+export default connect(null, { setLogin })(Register);

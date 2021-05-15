@@ -8,7 +8,7 @@ export default class LongTopbar extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="topbar fixed-top topbar-long" {...this.props}>
+                <div className={`topbar fixed-top topbar-long ${this.props.collapse ? "topbar-long-collapse" : ""}`} {...this.props}>
                     <div className="topbar-text topbar-long-text h-30"> {this.props.text} </div>
                          {this.props.children ?
                         this.props.children

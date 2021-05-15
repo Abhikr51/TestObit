@@ -23,7 +23,7 @@
 <body>
   <!-- Spash Screen code -->
   
-    <div id="splash" style="visibility: visible; transition: all .6s ease .6s;" class=" splash-wrapper">
+    <div id="splash"  class="transit splash-wrapper">
       <div class="splash-container">
         <div class="splash-logo">
           <img class="w-100" src="%PUBLIC_URL%/assets/img/logo-white.png" alt="">
@@ -110,7 +110,7 @@
 <script type="text/javascript" src="%PUBLIC_URL%/assets/js/mdb.min.js"></script>
 <script>
   setTimeout(() => {
-    document.getElementById('splash').style.left = "-100%"
+    document.getElementById('splash').className += " "+"splash-hider"
   }, 5000)
 </script>
 

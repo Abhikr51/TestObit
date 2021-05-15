@@ -1,4 +1,4 @@
-import { Button, IconButton} from '@material-ui/core'
+import { Button, IconButton } from '@material-ui/core'
 import React, { Component } from 'react'
 import Animate from '../../components/Animate'
 import Modal from '../../components/Modal'
@@ -556,7 +556,7 @@ export default class Syllabus extends Component {
                     {
                         code: "BBCACCHT501	",
                         title: "Theory of Computation",
-                        content:`<h3 style=" color:#030">Syllabus:</h3>
+                        content: `<h3 style=" color:#030">Syllabus:</h3>
                         <p><strong>Finite state Automata and regular languages</strong> – recognition of a language by an automation, equivalence of DFA and NFA, minimization of FA, equivalence of FAs pumping lemma for regularity, closure properties of regular sets.&nbsp;&nbsp;</p>
                         
                         <p><strong>Context – free languages and push – down automata</strong>: non-regular CFLs, closure properties of CFLs. Properties of grammars – emptiness, ambiguity, LL &amp; LR undecidable problems of CFLs. Compatibility:- Turing machines and its variants, Universal TMs, halting problem.</p>
@@ -699,12 +699,12 @@ export default class Syllabus extends Component {
                         title: "One from pool of Discipline Specific Electives",
                         content: null
                     },
-                    
+
                 ]
             },
             {
-                sem : "Discipline Specific Electives",
-                subjects : [
+                sem: "Discipline Specific Electives",
+                subjects: [
                     {
                         code: "BBCADSHC**",
                         title: "Computer Graphics",
@@ -892,12 +892,12 @@ export default class Syllabus extends Component {
                         <p>&nbsp;</p>
                         <br><br>`
                     },
-                    
-                ] 
+
+                ]
             },
             {
-                sem : "Generic Elective Courses",
-                subjects : [
+                sem: "Generic Elective Courses",
+                subjects: [
                     {
                         code: "BBCAGEHT**",
                         title: "Mathematics-I",
@@ -1041,12 +1041,12 @@ export default class Syllabus extends Component {
                         3. Management Information System – Dharminder Kumar &amp; Sangeeta Gupta; EXCEL Book.<br><br>
                         `
                     },
-                    
-                ] 
+
+                ]
             },
             {
-                sem : "AECC-MIL Courses",
-                subjects : [
+                sem: "AECC-MIL Courses",
+                subjects: [
                     {
                         code: "BAECCLET**",
                         title: "EnglishCommunication",
@@ -1119,74 +1119,70 @@ export default class Syllabus extends Component {
                         <p>&nbsp;</p>
                         <br><br>`
                     },
-                    
-                ] 
+
+                ]
             },
         ],
-        visible : false,
-        selectedContent : {
-            header : "Viewer",
+        visible: false,
+        selectedContent: {
+            header: "Viewer",
         }
     }
     render() {
         return (
-            <div>
+            <div className="wrapper">
                 <Topbar text={<span><i className="fas fa-book-open"></i> Syllabus</span>}>
                     <IconButton onClick={this.props.toggleDrawer('left', true)}> <i style={{ fontSize: "20px" }} className="fas fa-bars  text-white"></i> </IconButton >
                     <IconButton className="float-right" onClick={this.props.togglePopper}> <i style={{ fontSize: "20px" }} className="fas fa-ellipsis-v  text-white"></i> </IconButton >
                 </Topbar>
-
-                <Animate>
-                    <div className="wrapper">
-                        {
-                            this.state.courses.map((item, index) => (
-                                <div key={index}>
-                                    <h4 className="text-center text-muted">{item.sem}</h4>
-                                    <table className="table table-bordered  table-sm">
-                                        <thead className="table-light">
-                                            <tr>
-                                                <th className="text-center">Course Code</th>
-                                                <th className="text-center">Course Title</th>
+                {
+                    this.state.courses.map((item, index) => (
+                        <div key={index}>
+                            <h4 className="text-center text-muted">{item.sem}</h4>
+                            <table className="table table-bordered  table-sm">
+                                <thead className="table-light">
+                                    <tr>
+                                        <th className="text-center">Course Code</th>
+                                        <th className="text-center">Course Title</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        item.subjects.map((subject, sindex) => (
+                                            <tr key={sindex}>
+                                                <td>{subject.code}</td>
+                                                <td>
+                                                    {
+                                                        (subject.content) ?
+                                                            <Button onClick={() => { this.setState({ visible: true, selectedContent: { header: subject.title, content: subject.content } }) }} style={{ padding: "0", fontSize: "12px", textTransform: "initial" }} color="primary">
+                                                                {subject.title}
+                                                            </Button>
+                                                            : <span style={{ fontSize: "12px" }}>{subject.title}</span>
+                                                    }
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                item.subjects.map((subject, sindex) => (
-                                                    <tr key={sindex}>
-                                                        <td>{subject.code}</td>
-                                                        <td>
-                                                            {
-                                                                (subject.content) ?
-                                                                    <Button onClick={()=>{this.setState({visible : true ,selectedContent : {header : subject.title ,content : subject.content}})}} style={{ padding: "0", fontSize: "12px", textTransform: "initial" }} color="primary">
-                                                                        {subject.title}
-                                                                    </Button>
-                                                                    : <span style={{fontSize : "12px"}}>{subject.title}</span> 
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                ))
-                                            }
+                                        ))
+                                    }
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                            ))
-                        }
-                    </div>
-                </Animate>
+                                </tbody>
+                            </table>
+                        </div>
+                    ))
+                }
                 <Modal
-                visible = {this.state.visible}
-                onClose = {()=>{this.setState({visible  : false})}}
-                header = {this.state.selectedContent.header}
-                style= { {
-                width: "90%",
-                height: "90%",}}
-                className= ""
+                    visible={this.state.visible}
+                    onClose={() => { this.setState({ visible: false }) }}
+                    header={this.state.selectedContent.header}
+                    style={{
+                        width: "90%",
+                        height: "90%",
+                    }}
+                    className=""
                 >
                     <React.Fragment>
 
-                        <br/>
-                        <div dangerouslySetInnerHTML={{__html: this.state.selectedContent.content}} id="syllabus-viewer"></div>
+                        <br />
+                        <div dangerouslySetInnerHTML={{ __html: this.state.selectedContent.content }} id="syllabus-viewer"></div>
                     </React.Fragment>
                 </Modal>
             </div>

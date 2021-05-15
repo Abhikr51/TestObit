@@ -1,13 +1,15 @@
-import React, { Suspense ,useEffect } from 'react';
+import React, { Suspense} from 'react';
 import './css/style.css';
 import AuthRoute from "./auth/AuthRoute"
 import GuestRoute from "./auth/GuestRoute"
 import { Route, Switch, useLocation } from 'react-router';
 import { createMuiTheme } from '@material-ui/core/styles';
-import { AnimatePresence } from "framer-motion";
 import { ThemeProvider } from '@material-ui/styles';
 import { useHistory } from "react-router-dom";
-import { LOADEROFF } from './globals/__global_funcs';
+import {
+  CSSTransition,
+  TransitionGroup,
+} from 'react-transition-group';
 //components
 // const Login = React.lazy(() => import('./views/guest/Login'));
 // const Register = React.lazy(() => import('./views/guest/Register'));
@@ -45,46 +47,54 @@ export default function App(props) {
         </React.Fragment>
       case 2:
         return (<React.Fragment>
-          <Route path="/student" component={StudentLayout} />
+          <AuthRoute path="/student" component={StudentLayout} />
           <AuthRoute path="/all-set" component={AllSet} />
         </React.Fragment>)
       case 0:
-        return <AuthRoute exact path="/" component={Login} />
+        return <Route exact path="/" component={Login} />
       default:
         return ""
     }
   }
+
   let history = useHistory();
-  const [goUrl, SetGoUrl] = React.useState("")
   const location = useLocation()
-  // useEffect(() => {
-  //   LOADEROFF();
-    
-  // }, [])
+  const [goUrl, SetGoUrl] = React.useState("")
+  const [hide, setHide] = React.useState(true)
+
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
-        <form className="fixed-bottom" onSubmit={(e) => { e.preventDefault(); history.push(goUrl) }}>
+        <form className={`fixed-bottom transit ${(hide) ? "goUrl-hide" : ""}`} onSubmit={(e) => { e.preventDefault(); history.push(goUrl) }}>
+          <div onClick={()=>{setHide(!hide)}} className="goUrl-hider"><i className={`fas fa-chevron-${(hide) ? "up" : "down"}`}></i> </div>
           <div className="input-group flex-nowrap">
             <input type="text" value={goUrl} onChange={(e) => { SetGoUrl(e.target.value) }} placeholder="Go URL (debug mode)" className="form-control " />
             <button className="btn btn-primary rounded-0 input-group-text" id="addon-wrapping">Go</button>
           </div>
         </form>
-        <AnimatePresence exitBeforeEnter >
-          {/* <Suspense  fallback={""}> */}
-            <Switch location={location} key={location.pathname} >
+       
+          <TransitionGroup>
+            {/* <Suspense  fallback={""}> */}
+            <CSSTransition
+                key={location.pathname}
+                timeout={300}
+                classNames="fade"
+                unmountOnExit
+              >
+              <Switch location={location} >
 
-              <GuestRoute exact path="/" component={Login} />
-              <GuestRoute path="/register" component={Register} />
-              <GuestRoute path="/verify" component={VerifyEmail} />
+                <GuestRoute exact path="/" component={Login} />
+                <GuestRoute path="/register" component={Register} />
+                <GuestRoute path="/verify" component={VerifyEmail} />
 
-              {
-                activeUser(parseInt(2))
-              }
-              <Route component={Page404} />
-            </Switch>
-          {/* </Suspense> */}
-        </AnimatePresence>
+                {
+                  activeUser(parseInt(2))
+                }
+                <Route component={Page404} />
+              </Switch>
+            </CSSTransition>
+            {/* </Suspense> */}
+          </TransitionGroup>
       </ThemeProvider>
     </React.Fragment>
   )

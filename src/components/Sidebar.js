@@ -86,7 +86,7 @@ function Sidebar(props) {
                         variant="dot"
 
                     >
-                        <Avatar style={{height: "100%" , width: "100%"}} alt="Remy Sharp" src="./assets/img/abhijeet.jpeg" />
+                        <Avatar style={{height: "100%" , width: "100%"}} alt="Remy Sharp" src="./assets/img/user.png" />
                     </StyledBadge>
                 </div>
                 <p className="sidenav-text text-center text-white ">{(props.user.name) ?? "Loading.."}</p>
@@ -191,12 +191,12 @@ function Sidebar(props) {
                         icon: <Icon className="fas fa-book-open" />,
                         dropdown: false,
                     },
-                     {
-                       title: 'Collegus',
-                        link : "/collegus",
-                        icon: <Icon className="fas fa-user-friends" />,
-                        dropdown: false,
-                    },
+                    //  {
+                    //    title: 'Collegus',
+                    //     link : "/collegus",
+                    //     icon: <Icon className="fas fa-user-friends" />,
+                    //     dropdown: false,
+                    // },
                      {
                        title: 'Notice Booard',
                         link : "/notice",

@@ -1,19 +1,29 @@
 import { Divider, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText, ListSubheader } from '@material-ui/core'
 import React, { Component } from 'react'
-import { Line } from 'react-chartjs-2'
 import Animate from '../../components/Animate'
 import LongTopbar from '../../components/LongTopbar'
 
 export default class MockTest extends Component {
-    
+    constructor(props){
+        super(props);
+        this.state = {
+            scrollTop: 0
+        }
+    }
+    handleScroll = (e) => {
+        this.setState({
+          scrollTop: e.target.scrollTop
+        })
+        
+    }
     render() {
         return (
             <div>
-                <div className="wrapper">
-                    <LongTopbar text={<span><i className="fas fa-book"></i>&nbsp;&nbsp; Mock Test</span>}>
+                <div ref={this.myRef} onScroll={this.handleScroll} className="wrapper">
+                    <LongTopbar collapse={this.state.scrollTop > 65} text={<span><i className="fas fa-book"></i>&nbsp;&nbsp; Mock Test</span>}>
                         <IconButton onClick={this.props.toggleDrawer('left', true)}> <i style={{ fontSize: "20px" }} className="fas fa-bars  text-white"></i> </IconButton >
                         <IconButton className="float-right" onClick={this.props.togglePopper}> <i style={{ fontSize: "20px" }} className="fas fa-ellipsis-v  text-white"></i> </IconButton >
-                        <div className="static-card-box">
+                        <div className={`static-card-box ${this.state.scrollTop > 65 ? "static-card-box-collapse" : ""}`}>
                             <div className="row">
                                 <div className="col-4">
                                     <div className="static-card">
@@ -41,9 +51,8 @@ export default class MockTest extends Component {
 
                         </div>
                     </LongTopbar>
-                    <Animate>
 
-                        <div className="list-box">
+                        <div  className="list-box">
                             <List dense
                             subheader={
                                 <ListSubheader component="div" id="nested-list-subheader">
@@ -118,7 +127,6 @@ export default class MockTest extends Component {
                                 </ListItem>
                             </List>
                         </div>
-                    </Animate>
                 </div>
             </div>
         )

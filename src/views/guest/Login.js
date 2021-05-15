@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { LOADEROFF, LOADERON, redirect, validate } from '../../globals/__global_funcs'
-import Animate from '../../components/Animate'
+import swal from "sweetalert"
 import { setLogin } from '../../redux/actions/AuthActions'
 import { connect } from 'react-redux'
 import { rootURL } from '../../globals/__gobal_vars'
@@ -42,7 +42,7 @@ class Login extends Component {
                     //     // alert(err.message, "Check You Have activate internet Connection");
                     //     alert(err);
                     // }
-                    alert(err);
+                    swal(err);
                     console.log(err)
                     LOADEROFF();
                 });
@@ -56,7 +56,7 @@ class Login extends Component {
     render() {
 
         return (
-            <Animate className="wrapper d-flex align-items-center">
+            <div className="wrapper d-flex align-items-center">
 
 
                 <div style={{marginTop: "50px"}} className="card">
@@ -102,7 +102,7 @@ class Login extends Component {
                         
                     </div>
                 </div>
-            </Animate>
+            </div>
 
         )
     }

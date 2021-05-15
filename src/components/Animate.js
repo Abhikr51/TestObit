@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import React, { Component } from 'react'
 
 export default class Animate extends Component {
@@ -29,12 +28,12 @@ export default class Animate extends Component {
     render() {
         return (
             <React.Fragment>
-                <motion.div
-                    initial='initial'
-                    animate='animate'
-                    exit='out'
-                    variants={this.pageVariants}
-                    transition={this.pageTransitions}
+                <div
+                    // initial='initial'
+                    // animate='animate'
+                    // exit='out'
+                    // variants={this.pageVariants}
+                    // transition={this.pageTransitions}
                     {...this.props}
 
                 >
@@ -42,7 +41,7 @@ export default class Animate extends Component {
                             this.props.children
 
                         : ""}
-                </motion.div>
+                </div>
             </React.Fragment>
         )
     }

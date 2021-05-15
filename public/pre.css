@@ -9,8 +9,8 @@
       width: 100%;
       height: 100%;
       display: flex;
-      justify-content: center;
-      align-items: center;
+      /* justify-content: center;
+      align-items: center; */
       z-index: 1050;
    }
    #loader h1 {
@@ -30,7 +30,7 @@
     }
     
     #loader .loader {
-      margin: 5% auto 30px;
+      margin: auto;
     }
     
     #loader .book {
@@ -125,10 +125,11 @@
 
 .splash-wrapper{
   position: fixed;
+  left: 0;
   width: 100%;
   height: 100%;
   background: rgb(83, 43, 226);
-  background: url("./assets/img/banner.png");
+  background: url("./assets/img/banner.svg");
   background-size: cover;
   z-index: 1100 !important;
 }
@@ -139,7 +140,9 @@
   z-index: -10;
   padding: 12px;
 }
-
+.splash-logo{
+  width: 230px;
+}
 .splash-container{
   position: absolute;
   height: 75%;
@@ -149,6 +152,9 @@
   justify-content: center;
   align-items: center;
   padding: 30px;
+}
+.splash-hider{
+  left: -100%;
 }
 .creator-container {
   position: absolute;
@@ -239,7 +245,9 @@
       width: 10%;
   }
 }
-
+.transit {
+  transition: .8s all;
+}
 
 
 

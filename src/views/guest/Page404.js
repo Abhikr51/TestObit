@@ -13,20 +13,18 @@ export default class Page404 extends Component {
                         : ""
                     }
                 </Topbar>*/}
-                <Animate>
-                    <div className="wrapper">
-                        basename  : {window.location.origin} <br />
+                <div className="wrapper">
+                    basename  : {window.location.origin} <br />
                         url : {this.props.history.location.pathname}
-                        <div className="container p-5">
-                            <div className="row justify-content-center">
-                                <div className="col-8">
-                                    <img width="100%" src="./assets/img/access-denied.jpg" alt="" />
-                                </div>
+                    <div className="container p-5">
+                        <div className="row justify-content-center">
+                            <div className="col-8">
+                                <img width="100%" src="./assets/img/access-denied.jpg" alt="" />
                             </div>
                         </div>
-                        <h2 className="text-center">Under Development</h2>
                     </div>
-                </Animate> 
+                    <h2 className="text-center">Under Development</h2>
+                </div>
                 not found
             </div>
         )
