@@ -6,26 +6,29 @@ export const setTestResult = (data) => {
 
 
     return (dispatch) => {
-
         dispatch({
             type: "SET_TEST_RESULT",
             payload : data
         })
-        // notification("Are you sure to logout ?","confirm")
-        //     .then((willDelete) => {
-        //         if (willDelete) {
-        //             LOADERON();
-        //             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-        //             axios.post(rootURL + "/auth/logout", {}).then((res) => {
-        //                 localStorage.clear();
+        
+        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+        axios.post(rootURL + "/auth/uploadAnswers", {
+            answer_array : data
+        }).then((res) => {
+            localStorage.clear();
+            console.log(res);
+            if(res.data.status){
+                
+                
+            }else{
+                
 
-        //                 // this.props.history.push('/');
-        //                 LOADEROFF();
-        //             }).catch((err) => {
-        //                 LOADEROFF();
-        //                 console.log(err);
-        //             })
-        //         }
-        //     });
+            }
+            
+        }).catch((err) => {
+            
+            console.log(err);
+        })
+        
     }
 }
