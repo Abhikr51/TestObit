@@ -73,14 +73,13 @@ export default function App(props) {
           </div>
         </form>
        
-          <TransitionGroup>
-            {/* <Suspense  fallback={""}> */}
+          {/* <TransitionGroup>
             <CSSTransition
                 key={location.pathname}
                 timeout={300}
                 classNames="fade"
                 unmountOnExit
-              >
+              > */}
               <Switch location={location} >
 
                 <GuestRoute exact path="/" component={Login} />
@@ -92,9 +91,8 @@ export default function App(props) {
                 }
                 <Route component={Page404} />
               </Switch>
-            </CSSTransition>
-            {/* </Suspense> */}
-          </TransitionGroup>
+            {/* </CSSTransition>
+          </TransitionGroup> */}
       </ThemeProvider>
     </React.Fragment>
   )

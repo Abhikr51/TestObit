@@ -40,7 +40,7 @@ export default class Team extends Component {
 
                         </div>
                         <div className="col-12">
-                            <a target="_blank" href="https://www.facebook.com/abhi.kr.51"
+                            <a target="_blank" rel="noreferrer" href="https://www.facebook.com/abhi.kr.51"
                                 style={{
                                     background: "#4b69b1",
                                     color: "white",
@@ -49,7 +49,7 @@ export default class Team extends Component {
                                 class="btn   btn-floating float-right ml-1">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            <a target="_blank" href="https://github.com/Abhikr51"
+                            <a target="_blank" rel="noreferrer" href="https://github.com/Abhikr51"
                                 style={{
                                     background: "#515558",
                                     color: "white",
@@ -58,7 +58,7 @@ export default class Team extends Component {
                                 class="btn   btn-floating float-right mx-1">
                                 <i class="fab fa-github"></i>
                             </a>
-                            <a target="_blank" href="https://www.linkedin.com/in/abhijit-kumar-708b53192"
+                            <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/abhijit-kumar-708b53192"
                                 style={{
                                     background: "#0678b6",
                                     color: "white",
@@ -76,7 +76,7 @@ export default class Team extends Component {
                                 class="btn   btn-floating float-right mx-1">
                                 <i class="fas fa-envelope"></i>
                             </button>
-                            <a target="_blank" href="https://mobile.twitter.com/Abhijit84828029"
+                            <a target="_blank" rel="noreferrer" href="https://mobile.twitter.com/Abhijit84828029"
                                 style={{
                                     background: "#37b1e2",
                                     color: "white",
@@ -113,7 +113,7 @@ export default class Team extends Component {
                             </ListItem>
                         </div>
                         <div className="col-12">
-                            <a target="_blank" href=""
+                            <a target="_blank" rel="noreferrer" href=""
                                 style={{
                                     background: "#4b69b1",
                                     color: "white",
@@ -122,7 +122,7 @@ export default class Team extends Component {
                                 class="btn   btn-floating float-right ml-1">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            {/* <a target="_blank" href=""
+                            {/* <a target="_blank" rel="noreferrer" href=""
                                     style={{
                                         background: "#515558",
                                         color: "white",
@@ -131,7 +131,7 @@ export default class Team extends Component {
                                     class="btn   btn-floating float-right mx-1">
                                         <i class="fab fa-github"></i>
                                     </a> */}
-                            <a target="_blank" href=""
+                            <a target="_blank" rel="noreferrer" href=""
                                 style={{
                                     background: "#0678b6",
                                     color: "white",
@@ -149,7 +149,7 @@ export default class Team extends Component {
                                 class="btn   btn-floating float-right mx-1">
                                 <i class="fas fa-envelope"></i>
                             </button>
-                            <a target="_blank" href=""
+                            <a target="_blank" rel="noreferrer" href=""
                                 style={{
                                     background: "#37b1e2",
                                     color: "white",
@@ -187,7 +187,7 @@ export default class Team extends Component {
 
                         </div>
                         <div className="col-12">
-                            <a target="_blank" href=""
+                            <a target="_blank" rel="noreferrer" href=""
                                 style={{
                                     background: "#4b69b1",
                                     color: "white",
@@ -196,7 +196,7 @@ export default class Team extends Component {
                                 class="btn   btn-floating float-right ml-1">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            {/* <a target="_blank" href=""
+                            {/* <a target="_blank" rel="noreferrer" href=""
                                     style={{
                                         background: "#515558",
                                         color: "white",
@@ -205,7 +205,7 @@ export default class Team extends Component {
                                     class="btn   btn-floating float-right mx-1">
                                         <i class="fab fa-github"></i>
                                     </a> */}
-                            <a target="_blank" href=""
+                            <a target="_blank" rel="noreferrer" href=""
                                 style={{
                                     background: "#0678b6",
                                     color: "white",
@@ -223,7 +223,7 @@ export default class Team extends Component {
                                 class="btn   btn-floating float-right mx-1">
                                 <i class="fas fa-envelope"></i>
                             </button>
-                            <a target="_blank" href=""
+                            <a target="_blank" rel="noreferrer" href=""
                                 style={{
                                     background: "#37b1e2",
                                     color: "white",
@@ -261,7 +261,7 @@ export default class Team extends Component {
                             </ListItem>
                         </div>
                         <div className="col-12">
-                            <a target="_blank" href=""
+                            <a target="_blank" rel="noreferrer" href=""
                                 style={{
                                     background: "#4b69b1",
                                     color: "white",
@@ -270,7 +270,7 @@ export default class Team extends Component {
                                 class="btn   btn-floating float-right ml-1">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            {/* <a target="_blank" href="" 
+                            {/* <a target="_blank" rel="noreferrer" href="" 
                                     style={{
                                         background: "#515558",
                                         color: "white",
@@ -279,7 +279,7 @@ export default class Team extends Component {
                                     class="btn   btn-floating float-right mx-1">
                                         <i class="fab fa-github"></i>
                                     </a> */}
-                            <a target="_blank" href=""
+                            <a target="_blank" rel="noreferrer" href=""
                                 style={{
                                     background: "#0678b6",
                                     color: "white",
@@ -297,7 +297,7 @@ export default class Team extends Component {
                                 class="btn   btn-floating float-right mx-1">
                                 <i class="fas fa-envelope"></i>
                             </button>
-                            <a target="_blank" href=""
+                            <a target="_blank" rel="noreferrer" href=""
                                 style={{
                                     background: "#37b1e2",
                                     color: "white",

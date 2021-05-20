@@ -1,20 +1,46 @@
-import { Divider, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText, ListSubheader } from '@material-ui/core'
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, IconButton, Link, List, ListItem, ListItemSecondaryAction, ListItemText, ListSubheader } from '@material-ui/core'
 import React, { Component } from 'react'
-import Animate from '../../components/Animate'
 import LongTopbar from '../../components/LongTopbar'
-
+import axios from 'axios';
+import { rootURL } from '../../globals/__gobal_vars';
+import { LOADEROFF, LOADERON } from '../../globals/__global_funcs';
 export default class MockTest extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            scrollTop: 0
+            scrollTop: 0,
+            testList: [],
+            visible: false,
+            selectedItem : {}
         }
     }
     handleScroll = (e) => {
         this.setState({
-          scrollTop: e.target.scrollTop
+            scrollTop: e.target.scrollTop
         })
-        
+
+    }
+    componentDidMount() {
+        LOADERON();
+        axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem('token');
+        axios.post(rootURL + "/auth/getSubjectWiseQuestionSets", {
+            test_type: 1
+        }).then((res) => {
+            //success
+            if (res.data.status) {
+                this.setState({
+                    testList: res.data.data,
+                })
+                LOADEROFF();
+            } else {
+                LOADEROFF();
+                console.log(res);
+            }
+        }).catch((err) => {
+            LOADEROFF();
+            console.log(err);
+
+        })
     }
     render() {
         return (
@@ -52,82 +78,90 @@ export default class MockTest extends Component {
                         </div>
                     </LongTopbar>
 
-                        <div  className="list-box">
-                            <List dense
-                            subheader={
-                                <ListSubheader component="div" id="nested-list-subheader">
-                                   Fundamental of computer
-                                </ListSubheader>
-                            } >
-                                {[0, 1, 2].map((value, index) => {
+                    <div className="list-box">
+                        {
+                            this.state.testList.map((subject, index) => (
+                                <React.Fragment key={index}>
 
-                                    return (
-                                        <ListItem
-                                            style={{
-                                                background: "#5c5c5c1f",
-                                                padding: "10px 15px",
-                                                margin: "5px 0"
-                                            }}
-                                            key={value} button>
-                                            <ListItemText id={`checkbox-list-secondary-label-${index}`} primary={`${index + 1}. Mock  ${index + 1}`} />
-                                            <ListItemSecondaryAction>
-                                                <IconButton onClick={this.props.togglePopper}> <i className="fas text-primary fa-arrow-alt-circle-right"></i> </IconButton >
-                                            </ListItemSecondaryAction>
-                                        </ListItem>
-                                    );
-                                })}
-                                <ListItem
-                                    style={{
-                                        background: "#5c5c5c1f",
-                                        padding: "10px 15px",
-                                        margin: "5px 0"
-                                    }}
-                                    key={5} button>
-                                    <ListItemText id={`checkbox-list-secondary-label-${5}`} primary={`${5 + 1}. Mock  ${5 + 1}`} />
-                                    <ListItemSecondaryAction>
-                                        <IconButton onClick={this.props.togglePopper}> <i className="fas text-success fa-check-circle"></i> </IconButton >
-                                    </ListItemSecondaryAction>
-                                </ListItem>
-                            </List>
-                            <Divider />
-                            <List dense
-                            subheader={
-                                <ListSubheader component="div" id="nested-list-subheader">
-                                   C programming
-                                </ListSubheader>
-                            } >
-                                {[0, 1, 2].map((value, index) => {
+                                    <List dense
+                                        subheader={
+                                            <ListSubheader component="div" id="nested-list-subheader">
+                                                {subject.title}
+                                            </ListSubheader>
+                                        } >
 
-                                    return (
-                                        <ListItem
-                                            style={{
-                                                background: "#5c5c5c1f",
-                                                padding: "10px 15px",
-                                                margin: "5px 0"
-                                            }}
-                                            key={value} button>
-                                            <ListItemText id={`checkbox-list-secondary-label-${index}`} primary={`${index + 1}. Mock  ${index + 1}`} />
-                                            <ListItemSecondaryAction>
-                                                <IconButton onClick={this.props.togglePopper}> <i className="fas text-primary fa-arrow-alt-circle-right"></i> </IconButton >
-                                            </ListItemSecondaryAction>
-                                        </ListItem>
-                                    );
-                                })}
-                                <ListItem
-                                    style={{
-                                        background: "#5c5c5c1f",
-                                        padding: "10px 15px",
-                                        margin: "5px 0"
-                                    }}
-                                    key={5} button>
-                                    <ListItemText id={`checkbox-list-secondary-label-${5}`} primary={`${5 + 1}. Mock  ${5 + 1}`} />
-                                    <ListItemSecondaryAction>
-                                        <IconButton > <i className="fas text-success fa-check-circle"></i> </IconButton >
-                                    </ListItemSecondaryAction>
-                                </ListItem>
-                            </List>
-                        </div>
+                                        {
+                                            (subject.question_sets.length > 0) ?
+                                                subject.question_sets.map((set, i) => {
+
+                                                    return (
+                                                        <ListItem
+                                                            key={i}
+                                                            style={{
+                                                                background: "#5c5c5c1f",
+                                                                padding: "10px 15px",
+                                                                margin: "5px 0"
+                                                            }}
+                                                            button>
+                                                            <ListItemText id={`checkbox-list-secondary-label-${i}`} primary={set.title} />
+                                                            <ListItemSecondaryAction>
+                                                                <IconButton onClick={()=>{this.setState({visible : true , selectedItem : set})}}> <i className="fas text-primary fa-arrow-alt-circle-right"></i> </IconButton >
+                                                                {/* <IconButton onClick={()=>{this.setState({visible : true , selectedItem : item})}}> <i className="fas text-success fa-check-circle"></i> </IconButton > */}
+                                                            </ListItemSecondaryAction>
+                                                        </ListItem>
+                                                    );
+                                                })
+                                                :
+                                                <ListItem
+                                                    style={{
+                                                        background: "#5c5c5c1f",
+                                                        padding: "10px 15px",
+                                                        margin: "5px 0"
+                                                    }}
+                                                    button>
+                                                    <ListItemText id={`checkbox-list-secondary-label-${1}`} primary={<>{"Sorry no Question sets available ..."}<i className="fas fa-sad-tear"></i></>} />
+
+                                                </ListItem>
+                                        }
+                                    </List>
+                                    <Divider />
+                                </React.Fragment>
+                            ))
+                        }
+                    </div>
                 </div>
+                <Dialog
+                    open={this.state.visible}
+                    onClose={()=>{this.setState({visible : false})}}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"Test Details"}</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {
+                            Object.keys(this.state.selectedItem).length !== 0 ? 
+                            <div className="row">
+                                <div className="col-4">Title</div>
+                                <div className="col-8">{this.state.selectedItem.title}</div>
+                                <div className="col-4">Questions</div>
+                                <div className="col-8">{this.state.selectedItem.q_length}</div>
+                                <div className="col-4">Time</div>
+                                <div className="col-8">{parseInt(this.state.selectedItem.time.split(":")[0])*60 + parseInt(this.state.selectedItem.time.split(":")[1])} min</div>
+                                
+                            </div>: ""
+                        }
+                    </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick={()=>{this.setState({visible : false})}} color="primary">
+                        Close
+                    </Button>
+                    <Button  onClick={()=>{this.setState({visible : false }); this.props.history.push("/student/test/" + this.state.selectedItem.id + "/" + (parseInt(this.state.selectedItem.time.split(":")[0])*60 + parseInt(this.state.selectedItem.time.split(":")[1]) )    )}}  color="primary" autoFocus>
+                        Start
+                    </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         )
     }

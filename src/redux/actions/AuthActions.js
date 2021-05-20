@@ -1,7 +1,6 @@
 import axios from "axios"
-import { LOADEROFF, LOADERON } from "../../globals/__global_funcs"
+import { LOADEROFF, LOADERON, notification } from "../../globals/__global_funcs"
 import { rootURL } from "../../globals/__gobal_vars"
-import swal from "sweetalert"
 export const setLogin = (data) => {
 
 
@@ -18,12 +17,7 @@ export const setLogout = () => {
 
     return (dispatch) => {
 
-        swal({
-            title: "Are you sure to logout ??",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
+        notification("Are you sure to logout ?","confirm")
             .then((willDelete) => {
                 if (willDelete) {
                     LOADERON();
@@ -34,7 +28,7 @@ export const setLogout = () => {
                             type: "SET_LOGOUT",
                         })
 
-                        this.props.history.push('/');
+                        // this.props.history.push('/');
                         LOADEROFF();
                     }).catch((err) => {
                         LOADEROFF();

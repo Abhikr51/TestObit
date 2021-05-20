@@ -1,6 +1,5 @@
 import { IconButton } from '@material-ui/core'
 import React, { Component } from 'react'
-import Animate from '../../components/Animate'
 import Topbar from '../../components/Topbar'
 
 export default class Page404 extends Component {

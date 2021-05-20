@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { LOADEROFF, LOADERON, redirect, validate } from '../../globals/__global_funcs'
-import swal from "sweetalert"
+import { LOADEROFF, LOADERON, notification, redirect, validate } from '../../globals/__global_funcs'
 import { setLogin } from '../../redux/actions/AuthActions'
 import { connect } from 'react-redux'
 import { rootURL } from '../../globals/__gobal_vars'
@@ -23,27 +22,28 @@ class Login extends Component {
                 }
             }
             axios.post(`${rootURL}/login`, {
-                email : this.state.username,
+                email : this.state.username.toLowerCase(),
                 password : this.state.password,
             },config)
                 .then(res => {
-                    localStorage.setItem('token', res.data.access_token);
-                    localStorage.setItem('email', res.data.user.email);
-                    localStorage.setItem('id', res.data.user.id);
-                    localStorage.setItem('user_type', res.data.user.user_type);
-                    this.props.setLogin(res.data.user);
-                    this.props.history.push(redirect(res.data.user.user_type));
-                    LOADEROFF();
+                    if(res.data.status){
+                        localStorage.setItem('token', res.data.access_token);
+                        localStorage.setItem('email', res.data.user.email);
+                        localStorage.setItem('id', res.data.user.id);
+                        localStorage.setItem('user_type', res.data.user.user_type);
+                        this.props.setLogin(res.data.user);
+                        this.props.history.push(redirect(res.data.user.user_type));
+                        LOADEROFF();
+                    }else{
+                        LOADEROFF();
+                        notification(res.data.error,"error");
+                    }
                 }).catch(err => {
-                    // if (err.message != "Network Error") {
-                        
-                    //     alert("Incorrect Email Or Password", "Check Credentials");
-                    // } else {
-                    //     // alert(err.message, "Check You Have activate internet Connection");
-                    //     alert(err);
-                    // }
-                    swal(err);
-                    console.log(err)
+                    if(err.message == "Network Error"){
+                        notification("Network error","error");
+                    }else{
+                        console.log(err)
+                    }
                     LOADEROFF();
                 });
         }
@@ -56,7 +56,7 @@ class Login extends Component {
     render() {
 
         return (
-            <div className="wrapper d-flex align-items-center">
+            <div className="wrapper d-flex align-items-center justify-content-center">
 
 
                 <div style={{marginTop: "50px"}} className="card">

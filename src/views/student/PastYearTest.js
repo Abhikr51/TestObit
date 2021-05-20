@@ -4,8 +4,7 @@ import LongTopbar from '../../components/LongTopbar'
 import axios from 'axios';
 import { rootURL } from '../../globals/__gobal_vars';
 import { LOADEROFF, LOADERON } from '../../globals/__global_funcs';
-
-export default class PracticeTest extends Component {
+export default class PastYearTest extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,12 +18,13 @@ export default class PracticeTest extends Component {
         this.setState({
             scrollTop: e.target.scrollTop
         })
+
     }
     componentDidMount() {
         LOADERON();
         axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem('token');
         axios.post(rootURL + "/auth/getSubjectWiseQuestionSets", {
-            test_type: 2
+            test_type: 3
         }).then((res) => {
             //success
             if (res.data.status) {
@@ -45,7 +45,7 @@ export default class PracticeTest extends Component {
     render() {
         return (
             <div ref={this.myRef} onScroll={this.handleScroll} className="wrapper">
-                <LongTopbar collapse={this.state.scrollTop > 65} text={<span><i className="fas fa-pencil-ruler"></i>&nbsp;&nbsp; Practice Test</span>}>
+                <LongTopbar collapse={this.state.scrollTop > 65} text={<span><i className="fas fa-file-invoice"></i>&nbsp;&nbsp; PYQ Test</span>}>
                     <IconButton onClick={this.props.toggleDrawer('left', true)}> <i style={{ fontSize: "20px" }} className="fas fa-bars  text-white"></i> </IconButton >
                     <IconButton className="float-right" onClick={this.props.togglePopper}> <i style={{ fontSize: "20px" }} className="fas fa-ellipsis-v  text-white"></i> </IconButton >
                     <div className={`static-card-box ${this.state.scrollTop > 65 ? "static-card-box-collapse" : ""}`}>
@@ -78,7 +78,7 @@ export default class PracticeTest extends Component {
                 </LongTopbar>
 
                 <div className="list-box">
-                {
+                        {
                             this.state.testList.map((subject, index) => (
                                 <React.Fragment key={index}>
 
@@ -102,7 +102,7 @@ export default class PracticeTest extends Component {
                                                                 margin: "5px 0"
                                                             }}
                                                             button>
-                                                            <ListItemText id={`checkbox-list-secondary-label-${i}`} primary={set.title} />
+                                                            <ListItemText id={`checkbox-list-secondary-label-${i}`} primary={set.title } />
                                                             <ListItemSecondaryAction>
                                                             <IconButton onClick={()=>{this.setState({visible : true , selectedItem : set})}}> <i className="fas text-primary fa-arrow-alt-circle-right"></i> </IconButton >
                                                                 {/* <IconButton onClick={()=>{this.setState({visible : true , selectedItem : item})}}> <i className="fas text-success fa-check-circle"></i> </IconButton > */}
@@ -119,7 +119,7 @@ export default class PracticeTest extends Component {
                                                     }}
                                                     button>
                                                     <ListItemText id={`checkbox-list-secondary-label-${1}`} primary={<>{"Sorry no Question sets available ..."}<i className="fas fa-sad-tear"></i></>} />
-                                                   
+
                                                 </ListItem>
                                         }
                                     </List>
@@ -127,8 +127,9 @@ export default class PracticeTest extends Component {
                                 </React.Fragment>
                             ))
                         }
-                </div>
-                <Dialog
+
+                    </div>
+                    <Dialog
                     open={this.state.visible}
                     onClose={()=>{this.setState({visible : false})}}
                     aria-labelledby="alert-dialog-title"

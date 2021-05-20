@@ -91,6 +91,19 @@
 
   <!-- Spash Screen end -->
   <noscript>You need to enable JavaScript to run this app.</noscript>
+
+  <div id="notification">
+    <div style="visibility: hidden; opacity: 0; transition: .3s all;" id="notification-overlay">
+      <div style="transform: scale(0.5); transition: .3s all;" id="notification-box">
+        <div id="notification-icon"></div>
+        <h5 id="notification-text" class="font-weight-light text-center">Success fully done this</h5>
+        <div id="notification-buttons">
+          <button data-mdb-ripple-color="primary" class="ripple">No</button>
+          <button data-mdb-ripple-color="primary" class="ripple">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id="root"></div>
   <div style="visibility: hidden; transition: .6s ease-in-out;" id="loader">
     <div class="loader-overlay">

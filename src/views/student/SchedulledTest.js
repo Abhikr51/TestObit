@@ -1,8 +1,56 @@
-import { Avatar, IconButton, ListItem, ListItemAvatar, ListItemText, } from '@material-ui/core'
+import { IconButton } from '@material-ui/core'
 import React, { Component } from 'react'
 import Topbar from '../../components/Topbar'
-
+import axios from 'axios';
+import { rootURL } from '../../globals/__gobal_vars';
+import {futurePastDetecter, LOADEROFF, LOADERON, timeConvert } from '../../globals/__global_funcs';
 export default class SchedulledTest extends Component {
+    state = {
+        testList: [],
+    }
+    
+    componentDidMount() {
+        LOADERON();
+        axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem('token');
+        axios.post(rootURL + "/auth/getScheduledTests", {
+            limit: 10
+        }).then((res) => {
+            //success
+            if (res.data.status) {
+                this.setState({
+                    testList: res.data.data,
+                })
+                // console.log(futurePastDetecter(new Date(res.data.data[0].date.split(" ")[0])))
+                LOADEROFF();
+            } else {
+                LOADEROFF();
+                console.log(res);
+            }
+        }).catch((err) => {
+            LOADEROFF();
+            console.log(err);
+
+        })
+        console.log(futurePastDetecter("2021-05-19", "14"));
+    }
+    colorDetector = (date) =>{
+        var dateStr = date.split(" ")[0] 
+        var time = parseInt(date.split(" ")[1].split(":")[0]) + parseInt(date.split(" ")[1].split(":")[1]);
+        switch (futurePastDetecter(dateStr ,  time)) {
+            case 'Upcoming today':
+                
+                return "var(--success)"
+            case 'Upcoming':
+                
+                return "var(--primary)"
+            case 'Missed':
+                
+            return "var(--secondary)"
+        
+            default:
+                break;
+        }
+    }
     render() {
         return (
             <div className="wrapper">
@@ -12,51 +60,30 @@ export default class SchedulledTest extends Component {
                 </Topbar>
                 <div className="card my-3">
                     <div className="card-body p-2">
-                        <div style={{ borderColor: "var(--primary)" }} className="schedule-box">
-                            <div style={{ fontSize: "12px" }} className="row justify-content-center">
-                                <div className="col-5 "><i className="fas text-primary fa-calendar-day"></i> 02/03/2021</div>
-                                <div className="col-3 text-center"><i className="fas text-primary fa-angle-double-right"></i> 50 Qs</div>
-                                <div className="col-4 text-right"><i className="fas text-primary fa-clock"></i> <i>30 min</i></div>
+                        {
+                            this.state.testList.map((item, index) => (
 
-                                <div style={{ borderTop: "1px solid #80808057" }} className="col-11 my-2">
+                                <div key={index} style={{ borderColor: item.date ?  this.colorDetector(item.date) : "var(--primary)"}} className="schedule-box">
+                                    <div style={{ fontSize: "12px" }} className="row justify-content-center">
+                                        <div className="col-8 "><i style={{ color: item.date ?  this.colorDetector(item.date) : "var(--primary)"}} className="fas fa-calendar-day"></i> {item.date ? item.date.split(" ")[0].split("-").reverse().join("-") : ""} at {item.date ? timeConvert(item.date.split(" ")[1]) : ""}</div>
+                                        <div className="col-4 text-right"><i style={{ color: item.date ?  this.colorDetector(item.date) : "var(--primary)"}} className="fas fa-clock"></i> <i>{item.time ? parseInt(item.time.split(":")[0])*60 + parseInt(item.time.split(":")[1]) : ""} min</i></div>
+                                        <div className="col-9 "><i style={{ color: item.date ?  this.colorDetector(item.date) : "var(--primary)"}} className="fas fa-angle-double-right"></i> {item.subject.title ?? ""}</div>
+                                        <div className="col-3 text-right"><i style={{ color: item.date ?  this.colorDetector(item.date) : "var(--primary)"}} className="fas fa-angle-double-right"></i> {item.q_length} Qs</div>
 
-                                    <h4 className="font-weight-light">AI forensic test</h4>
-                                    <p className="text-muted">Upcoming...</p>
+                                        <div className="col-11 my-2">
+
+                                            <h4 className="font-weight-light">{item.title}</h4>
+                                            <p className="text-muted">{item.date ?  futurePastDetecter(item.date.split(" ")[0],parseInt(item.date.split(" ")[1].split(":")[0]) + parseInt(item.date.split(" ")[1].split(":")[1])) : ""} ...</p>
+                                        </div>
+                                    </div>
+                                    <div onClick={()=>{this.props.history.push("/student/test")}} style={{ background: item.date ?  this.colorDetector(item.date) : "var(--primary)"}} className="bottom-box ripple"> Go  &nbsp;<i className="fas fa-caret-right"></i></div>
                                 </div>
-                            </div>
-                            <div className="bottom-box bg-primary ripple"> Go  &nbsp;<i className="fas fa-caret-right"></i></div>
-                        </div>
-                        <div style={{ borderColor: "var(--success)" }} className="schedule-box">
-                            <div style={{ fontSize: "12px" }} className="row justify-content-center">
-
-                                <div className="col-5 "><i className="fas text-success fa-calendar-day"></i> 02/03/2021</div>
-                                <div className="col-3 text-center"><i className="fas text-success fa-angle-double-right"></i> 50 Qs</div>
-                                <div className="col-4 text-right"><i className="fas text-success fa-clock"></i> <i>30 min</i></div>
-
-                                <div style={{ borderTop: "1px solid #80808057" }} className="col-11 my-2">
-
-                                    <h4 className="font-weight-light">Digital Logic pre test </h4>
-                                    <p className="text-muted">Passed away...</p>
-                                </div>
-                            </div>
-                            <div className="bottom-box bg-success ripple"> Go  &nbsp;<i className="fas fa-caret-right"></i></div>
-                        </div>
-                        <div style={{ borderColor: "var(--secondary)" }} className="schedule-box">
-                            <div style={{ fontSize: "12px" }} className="row justify-content-center">
-                                <div className="col-5 "><i className="fas text-secondary fa-calendar-day"></i> 02/03/2021</div>
-                                <div className="col-3 text-center"><i className="fas text-secondary fa-angle-double-right"></i> 50 Qs</div>
-                                <div className="col-4 text-right"><i className="fas text-secondary fa-clock"></i> <i>30 min</i></div>
-
-                                <div style={{ borderTop: "1px solid #80808057" }} className="col-11 my-2">
-
-                                    <h4 className="font-weight-light">Data Structure self test Lorem, ipsum dolor sit amet consectetur adipisicing.</h4>
-                                    <p className="text-muted">Missed out...</p>
-                                </div>
-                            </div>
-                            <div className="bottom-box bg-secondary ripple"> Go  &nbsp;<i className="fas fa-caret-right"></i></div>
-                        </div>
+                            ))
+                        }
+                        
                     </div>
                 </div>
+
             </div>
         )
     }

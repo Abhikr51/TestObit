@@ -10,16 +10,18 @@ import Dashboard from '../Dashboard';
 import MockTest from '../MockTest';
 import Notice from '../Notice';
 import PracticeTest from '../PracticeTest';
-import SamplePaper from '../SamplePaper';
-import SamplePaperTest from '../SamplePaperTest';
+import PYQ from '../PYQ';
+import PastYearTest from '../PastYearTest';
 import Syllabus from '../Syllabus';
 import Team from '../Team';
-import {
-    CSSTransition,
-    TransitionGroup,
-} from 'react-transition-group';
+// import {
+//     CSSTransition,
+//     TransitionGroup,
+// } from 'react-transition-group';
 import SchedulledTest from '../SchedulledTest';
 import TestCMP from '../TestCMP';
+import Profile from '../Profile';
+import TestResult from '../TestResult';
 function StudentLayout(props) {
     const [state, setStateValue] = React.useState({
         open: false,
@@ -61,30 +63,32 @@ function StudentLayout(props) {
 
                 <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>
-            <TransitionGroup>
+            {/* <TransitionGroup>
                 <CSSTransition
                     key={location.pathname}
                     timeout={1000}
                     classNames="fade"
-                    unmountOnExit
+                    
                 >
+
+                </CSSTransition>
+            </TransitionGroup> */}
                     <Switch>
                         <Route path="/student/dashboard" render={(p) => (<Dashboard {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
                         <Route path="/student/mock-test" render={(p) => (<MockTest {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
-                        <Route path="/student/sample-paper-test" render={(p) => (<SamplePaperTest {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
-                        <Route path="/student/sample-paper" render={(p) => (<SamplePaper {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
+                        <Route path="/student/pyq-test" render={(p) => (<PastYearTest {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
+                        <Route path="/student/pyq" render={(p) => (<PYQ {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
                         <Route path="/student/practice-test" render={(p) => (<PracticeTest {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
                         <Route path="/student/scheduled-test" render={(p) => (<SchedulledTest {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
                         <Route path="/student/notice" render={(p) => (<Notice {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
                         <Route path="/student/syllabus" render={(p) => (<Syllabus {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
                         <Route path="/student/team" render={(p) => (<Team {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
-                        <Route path="/student/test" render={(p) => (<TestCMP {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
+                        <Route path="/student/test/:id/:time" render={(p) => (<TestCMP {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
+                        <Route path="/student/test-result" render={(p) => (<TestResult {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
+                        <Route path="/student/profile" render={(p) => (<Profile {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
                         <Route path="/student/about" render={(p) => (<About {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
                         <Route render={(p) => (<Page404 {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
                     </Switch>
-
-                </CSSTransition>
-            </TransitionGroup>
         </div>
     )
 }

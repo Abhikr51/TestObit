@@ -21,7 +21,6 @@ const useStyles = makeStyles({
         width: 'auto',
     },
 });
-
 function Sidebar(props) {
     const classes = useStyles();
     // const [state, setState] = React.useState({
@@ -74,8 +73,8 @@ function Sidebar(props) {
             role="presentation"
 
         >
-            <div className="sidenav-top">
-                <div className="sidenav-logo">
+            <div  className="sidenav-top">
+                <Link to="/student/profile"  className="sidenav-logo d-block">
                     {/* <img className="w-100" src="./assets/img/abhijeet.jpeg" alt="" /> */}
                     <StyledBadge
                         overlap="circle"
@@ -88,7 +87,7 @@ function Sidebar(props) {
                     >
                         <Avatar style={{height: "100%" , width: "100%"}} alt="Remy Sharp" src="./assets/img/user.png" />
                     </StyledBadge>
-                </div>
+                </Link>
                 <p className="sidenav-text text-center text-white ">{(props.user.name) ?? "Loading.."}</p>
                 <div className="d-flex justify-content-between text-white">
                     <span className="d-inline-block">
@@ -133,18 +132,18 @@ function Sidebar(props) {
                         dropdown: false,
                     },
                     {
-                        title: 'Sample Papers',
+                        title: 'Past Year Questions',
                         icon: <Icon className="fas fa-file-invoice" />,
                         dropdown: true,
                         dropItems: [
                             {
-                                title: 'Sample paper Test',
-                                link : "/sample-paper-test",
+                                title: 'PYQ Test',
+                                link : "/pyq-test",
                                 icon: <Icon className="fas fa-circle-notch" />,
                             },
                             {
-                                title: 'Sample papers',
-                                link : "/sample-paper",
+                                title: 'Past year Questions',
+                                link : "/pyq",
                                 icon: <Icon className="fas fa-circle-notch" />,
                             },
                            
