@@ -91,8 +91,23 @@ class TestCMP extends Component {
     }
 
     submitTest = () =>{
-        this.props.setTestResult(this.state.questionList)
-        this.props.history.push("/student/test-result");
+        let unanswered  = 0;
+        this.state.questionList.map((item,index)=>{
+            if(item.selectedAnswer === ""){
+                unanswered++;
+            }
+        })
+        if(unanswered > 0){
+            notification(`You have ${unanswered} Unanswered question(s) are you sure to submit ??`,"confirm").then((isConfirm)=>{
+                if(isConfirm){
+                    this.props.setTestResult(this.state.questionList)
+                    this.props.history.push("/student/test-result");
+                }
+            })
+        }else{
+            this.props.setTestResult(this.state.questionList)
+            this.props.history.push("/student/test-result");
+        }
     }
     selectAnswer = (id , value)=>{
         let temp = this.state.questionList.map((item,index)=>{
@@ -116,7 +131,7 @@ class TestCMP extends Component {
                         <div className="">
                             <div className="row mb-2">
                                 <div className="col-8">
-                                    <Button onClick={() => { this.props.history.goBack() }} color="primary"> Exit </Button>
+                                    <Button onClick={() => { notification("Are you sure to leave test ??","confirm").then((isConfirm)=>{if(isConfirm){this.props.history.goBack()} })  }} color="primary"> Exit </Button>
                                     <b className="text-primary" >Q</b> : {this.state.q_index}/{this.state.questionList.length}
                                </div>
                                 <div className="col-4 text-right">
@@ -153,23 +168,26 @@ class TestCMP extends Component {
                             <div className="">
     
                                 <div className="row">
-                                    <div className="col-4 px-0">
-                                        <button onClick={()=>{this.setState({q_index : this.state.q_index - 1})}} className="btn btn-sm btn-block rounded-0 text-white btn-primary" >Prev</button>
+                                    <div className="col-6 px-0">
+                                        {
+                                            (this.state.q_index > 1) ? 
+                                            <button onClick={()=>{this.setState({q_index : this.state.q_index - 1})}} className="btn btn-sm btn-block py-3 rounded-0 text-white btn-primary" >Prev</button>
+                                            :""
+                                        }
                                     </div>
-                                    <div className="col-4 px-0">
-                                        <button onClick={()=>{this.setState({q_index : this.state.q_index + 1})}} className="btn btn-sm btn-block rounded-0 text-white btn-primary" >Skip</button>
-                                    </div>
+                                    {/* <div className="col-4 px-0">
+                                        <button onClick={()=>{this.setState({q_index : this.state.q_index + 1})}} className="btn btn-sm btn-block py-3 rounded-0 text-white btn-primary" >Skip</button>
+                                    </div> */}
+                                    <div className="col-6 px-0">
                                     {
                                         (this.state.q_index == this.state.questionList.length) ? 
 
-                                        <div className="col-4 px-0">
-                                            <button onClick={()=>{this.submitTest()}} className="btn btn-sm btn-block rounded-0 text-white btn-success" >Submit</button>
-                                        </div> 
-                                        :
-                                        <div className="col-4 px-0">
-                                            <button onClick={()=>{this.setState({q_index : this.state.q_index + 1})}} className="btn btn-sm btn-block rounded-0 text-white btn-primary" >Next</button>
-                                        </div>
+                                            <button onClick={()=>{this.submitTest()}} className="btn btn-sm btn-block py-3 rounded-0 text-white btn-success" >Submit</button>
+                                            :
+                                            <button onClick={()=>{this.setState({q_index : this.state.q_index + 1})}} className="btn btn-sm btn-block py-3 rounded-0 text-white btn-primary" >Next</button>
+                            
                                     }
+                                    </div> 
                                 </div>
                             </div>
                         </div>

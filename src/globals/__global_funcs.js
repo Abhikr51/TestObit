@@ -30,13 +30,13 @@ export const validate = (classname) =>{
     })();
 }
 export const LOADERON = ()=>{
-    document.getElementById("loader").style.opacity = "1"
-    document.getElementById("loader").style.visibility = "visible"
+    document.getElementById("loader-overlay").style.left = "0"
+    document.getElementById("loader-overlay").style.visibility = "visible"
 }
 export const LOADEROFF = ()=>{
     setTimeout(() => {
-        document.getElementById("loader").style.opacity = "0"
-        document.getElementById("loader").style.visibility = "hidden"
+        document.getElementById("loader-overlay").style.left = "-100%"
+        document.getElementById("loader-overlay").style.visibility = "visible"
     }, 500);
 }
 export const notification =(text , type="info")=>{
@@ -116,7 +116,7 @@ export const notification =(text , type="info")=>{
                     boxElm.style.transform = "scale(0.5)";
                 }
                 var icon = document.createElement("i"); 
-                icon.className = "fas fa-exclamation-circle fa-4x text-danger";
+                icon.className = "fas fa-exclamation-circle fa-4x text-warning";
                 iconElm.innerHTML = ""
                 iconElm.append(icon)
                 textElm.innerHTML = text;

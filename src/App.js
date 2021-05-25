@@ -1,4 +1,4 @@
-import React, { Suspense} from 'react';
+import React from 'react';
 import './css/style.css';
 import AuthRoute from "./auth/AuthRoute"
 import GuestRoute from "./auth/GuestRoute"
@@ -72,7 +72,7 @@ export default function App(props) {
             <button className="btn btn-primary rounded-0 input-group-text" id="addon-wrapping">Go</button>
           </div>
         </form>
-       
+        
           {/* <TransitionGroup>
             <CSSTransition
                 key={location.pathname}

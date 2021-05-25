@@ -10,10 +10,11 @@
       height: 100%;
       display: flex;
       top: 0;
-      left: 0;
+      left: -100%;
       /* justify-content: center;
       align-items: center; */
       z-index: 1050;
+      transition: 0.3s ease-in-out;
    }
    #loader h1 {
       color: #FFFFFF;
@@ -130,12 +131,12 @@
   left: 0;
   width: 100%;
   top: 0;
-  left: 0;
   height: 100%;
   background: rgb(83, 43, 226);
   background: url("./assets/img/banner.png");
   background-size: cover;
   z-index: 1100 !important;
+  overflow: hidden;
 }
 .wrapper{
   position: absolute;

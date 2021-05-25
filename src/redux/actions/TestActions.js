@@ -15,8 +15,6 @@ export const setTestResult = (data) => {
         axios.post(rootURL + "/auth/uploadAnswers", {
             answer_array : data
         }).then((res) => {
-            localStorage.clear();
-            console.log(res);
             if(res.data.status){
                 
                 
