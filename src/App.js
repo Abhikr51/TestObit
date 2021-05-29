@@ -23,9 +23,11 @@ import VerifyEmail from './views/guest/VerifyEmail';
 import AllSet from './views/guest/AllSet';
 import StudentLayout from './views/student/layouts/StudentLayout';
 import Page404 from './views/guest/Page404';
+import { connect } from 'react-redux';
+import AdminLayout from './views/admin/layout/AdminLayout';
 
 
-export default function App(props) {
+function App(props) {
   const theme = createMuiTheme({
     palette: {
       primary: {
@@ -42,7 +44,8 @@ export default function App(props) {
     switch (UserType) {
       case 5:
         return <React.Fragment>
-
+          <AuthRoute path="/admin" component={AdminLayout} />
+          
 
         </React.Fragment>
       case 2:
@@ -87,7 +90,7 @@ export default function App(props) {
                 <GuestRoute path="/verify" component={VerifyEmail} />
 
                 {
-                  activeUser(parseInt(2))
+                  activeUser(parseInt(props.user.user_type))
                 }
                 <Route component={Page404} />
               </Switch>
@@ -97,3 +100,7 @@ export default function App(props) {
     </React.Fragment>
   )
 }
+const mapStateToProps = state =>({
+  user : state.auth.user
+})
+export default connect(mapStateToProps,null)(App);

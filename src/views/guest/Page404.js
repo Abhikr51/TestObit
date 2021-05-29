@@ -1,5 +1,6 @@
 import { IconButton } from '@material-ui/core'
 import React, { Component } from 'react'
+import { Redirect } from 'react-router'
 import Animate from '../../components/Animate'
 import Topbar from '../../components/Topbar'
 
@@ -13,7 +14,7 @@ export default class Page404 extends Component {
                         : ""
                     }
                 </Topbar>*/}
-                <div className="wrapper">
+                {/* <div className="wrapper">
                     basename  : {window.location.origin} <br />
                         url : {this.props.history.location.pathname}
                     <div className="container p-5">
@@ -24,8 +25,8 @@ export default class Page404 extends Component {
                         </div>
                     </div>
                     <h2 className="text-center">Under Development</h2>
-                </div>
-                not found
+                </div> */}
+                <Redirect to="/" />
             </div>
         )
     }

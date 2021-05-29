@@ -43,6 +43,7 @@ export default class MockTest extends Component {
         })
     }
     render() {
+        let total = this.props.studentData.right + this.props.studentData.wrong;
         return (
             <div>
                 <div ref={this.myRef} onScroll={this.handleScroll} className="wrapper">
@@ -50,25 +51,25 @@ export default class MockTest extends Component {
                         <IconButton onClick={this.props.toggleDrawer('left', true)}> <i style={{ fontSize: "20px" }} className="fas fa-bars  text-white"></i> </IconButton >
                         <IconButton className="float-right" onClick={this.props.togglePopper}> <i style={{ fontSize: "20px" }} className="fas fa-ellipsis-v  text-white"></i> </IconButton >
                         <div className={`static-card-box ${this.state.scrollTop > 65 ? "static-card-box-collapse" : ""}`}>
-                            <div className="row">
+                            <div className="row justify-content-around">
                                 <div className="col-4">
                                     <div className="static-card">
                                         <div className="text-right"><i className="fas fa-percent text-primary"></i> &nbsp;&nbsp; </div>
-                                        <p className="text-left">52%</p>
+                                        <p className="text-left">{(total != 0 ) ? Math.round((this.props.studentData.right / (total)) * 100) : 0}</p>
                                     </div>
                                 </div>
 
-                                <div className="col-4">
+                                {/* <div className="col-4">
                                     <div className="static-card">
                                         <div className="text-right"><i className="fas fa-stopwatch text-primary"></i> &nbsp;&nbsp; </div>
                                         <p className="text-left">2:39</p>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div className="col-4">
                                     <div className="static-card">
                                         <div className="text-right"><i className="fas fa-pen-fancy text-primary"></i> &nbsp;&nbsp; </div>
-                                        <p className="text-left">243</p>
+                                        <p className="text-left">{total}</p>
                                     </div>
                                 </div>
 
@@ -147,7 +148,7 @@ export default class MockTest extends Component {
                                 <div className="col-4">Questions</div>
                                 <div className="col-8">{this.state.selectedItem.q_length}</div>
                                 <div className="col-4">Time</div>
-                                <div className="col-8">{parseInt(this.state.selectedItem.time.split(":")[0])*60 + parseInt(this.state.selectedItem.time.split(":")[1])} min</div>
+                                <div className="col-8">{parseInt(this.state.selectedItem.time)} min(s)</div>
                                 
                             </div>: ""
                         }
@@ -157,7 +158,7 @@ export default class MockTest extends Component {
                     <Button onClick={()=>{this.setState({visible : false})}} color="primary">
                         Close
                     </Button>
-                    <Button  onClick={()=>{this.setState({visible : false }); this.props.history.push("/student/test/" + this.state.selectedItem.id + "/" + (parseInt(this.state.selectedItem.time.split(":")[0])*60 + parseInt(this.state.selectedItem.time.split(":")[1]) )    )}}  color="primary" autoFocus>
+                    <Button  onClick={()=>{this.setState({visible : false }); this.props.history.push("/student/test/" + this.state.selectedItem.id + "/" + (parseInt(this.state.selectedItem.time) )    )}}  color="primary" autoFocus>
                         Start
                     </Button>
                     </DialogActions>

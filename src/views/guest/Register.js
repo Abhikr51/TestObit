@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import TextField from '@material-ui/core/TextField';
 import { FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select } from '@material-ui/core';
-import { LOADEROFF, LOADERON, validate } from '../../globals/__global_funcs';
+import { LOADEROFF, LOADERON, notification, validate } from '../../globals/__global_funcs';
 import Animate from '../../components/Animate';
 import Topbar from '../../components/Topbar';
 import { rootURL } from '../../globals/__gobal_vars';
@@ -94,15 +94,20 @@ class Register extends Component {
                 "password": this.state.formdata.password,
             }).then(res => {
                 //success
-                console.log(res);
-                localStorage.setItem('token', res.data.access_token);
-                localStorage.setItem('email', res.data.user.email);
-                localStorage.setItem('id', res.data.user.id);
-                localStorage.setItem('user_type', res.data.user.user_type);
-                // this.setState({ progress: false })
-                this.props.setLogin(res.data.user);
-                LOADEROFF();
-                this.props.history.push('/all-set');
+                if(res.data.status){
+                    console.log(res);
+                    localStorage.setItem('token', res.data.access_token);
+                    localStorage.setItem('email', res.data.user.email);
+                    localStorage.setItem('id', res.data.user.id);
+                    localStorage.setItem('user_type', res.data.user.user_type);
+                    // this.setState({ progress: false })
+                    this.props.setLogin(res.data.user);
+                    LOADEROFF();
+                    this.props.history.push('/all-set');
+                }else{
+                    notification(res.data.errors[0],'error');
+                    LOADEROFF();
+                }
                 
             }).catch((err) => {
                 console.log(err);
@@ -241,7 +246,7 @@ class Register extends Component {
                                             >
                                                 {
                                                     this.state.streamList.map((item, index) => (
-                                                        <MenuItem key={index} value={item.id}>{item.title}</MenuItem>
+                                                        <MenuItem disabled={item.id == "2"} key={index} value={item.id}>{item.title}</MenuItem>
                                                     ))
                                                 }
                                             </Select>

@@ -657,3 +657,27 @@ ul a{
     font-size: 24px;
     display: inline-block;
 }
+.fixed-div{
+    position: relative;
+    width: auto;
+    height: 80%;
+    margin-top: 10px;
+    /* background: #2196f3; */
+    
+}
+.visible-tab{
+    position: absolute;
+    min-height: 80%;
+    float: left;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    opacity: 1;
+    transition: 0.4s all;
+}
+.slide-visible-tab{
+    left: -120%;
+    width: 0% ;
+    opacity:  0;
+
+}

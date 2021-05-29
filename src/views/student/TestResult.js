@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Topbar from '../../components/Topbar';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { setStudentData } from '../../redux/actions/TestActions';
 class TestResult extends Component {
     constructor(props) {
         super(props);
@@ -66,7 +67,7 @@ class TestResult extends Component {
             <div className="wrapper">
                 <Topbar text={<span><i className="fas fa-invoice"></i> Result </span>}>
                     <IconButton onClick={this.props.toggleDrawer('left', true)}> <i style={{ fontSize: "20px" }} className="fas fa-bars  text-white"></i> </IconButton >
-                    <Button style={{backgroundColor : "#ffffff4a"}} className="float-right  text-white  rounded-0" onClick={() => { this.props.history.push("/student/dashboard") } }> Go Home </Button >
+                    <Button style={{backgroundColor : "#ffffff4a"}} className="float-right  text-white  rounded-0" onClick={() => { this.props.setStudentData() ; this.props.history.push("/student/dashboard") } }> Go Home </Button >
                 </Topbar>
                 <div className="performance container-fluid">
                     <div className="row  justify-content-center">
@@ -159,4 +160,5 @@ class TestResult extends Component {
 const mapStateToProps = (state) => ({
     result: state.testResult.result
 })
-export default connect(mapStateToProps, null)(TestResult)
+
+export default connect(mapStateToProps, {setStudentData})(TestResult)

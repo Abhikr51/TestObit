@@ -1,5 +1,5 @@
 import { Menu, MenuItem } from '@material-ui/core';
-import React, { Component } from 'react'
+import React, { useEffect} from 'react'
 import { connect } from 'react-redux';
 import { Route, Switch, useLocation } from 'react-router';
 import Sidebar from '../../../components/Sidebar'
@@ -22,6 +22,7 @@ import SchedulledTest from '../SchedulledTest';
 import TestCMP from '../TestCMP';
 import Profile from '../Profile';
 import TestResult from '../TestResult';
+import { setStudentData } from '../../../redux/actions/TestActions';
 function StudentLayout(props) {
     const [state, setStateValue] = React.useState({
         open: false,
@@ -44,7 +45,10 @@ function StudentLayout(props) {
     const logout = () => {
         props.setLogout();
     }
-
+    useEffect(() => {
+        props.setStudentData();
+        
+    }, [])
     const location = useLocation()
     return (
         <div className="wrapper p-0">
@@ -75,10 +79,10 @@ function StudentLayout(props) {
             </TransitionGroup> */}
                     <Switch>
                         <Route path="/student/dashboard" render={(p) => (<Dashboard {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
-                        <Route path="/student/mock-test" render={(p) => (<MockTest {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
-                        <Route path="/student/pyq-test" render={(p) => (<PastYearTest {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
-                        <Route path="/student/pyq" render={(p) => (<PYQ {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
-                        <Route path="/student/practice-test" render={(p) => (<PracticeTest {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
+                        <Route path="/student/mock-test" render={(p) => (<MockTest {...p} studentData={props.studentData ?? {}} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
+                        <Route path="/student/pyq-test" render={(p) => (<PastYearTest {...p} studentData={props.studentData ?? {}} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
+                        <Route path="/student/pyq" render={(p) => (<PYQ {...p} toggleDrawer={toggleDrawer} studentData={props.studentData ?? {}} togglePopper={togglePopper} />)} />
+                        <Route path="/student/practice-test" render={(p) => (<PracticeTest {...p} studentData={props.studentData ?? {}} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
                         <Route path="/student/scheduled-test" render={(p) => (<SchedulledTest {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
                         <Route path="/student/notice" render={(p) => (<Notice {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
                         <Route path="/student/syllabus" render={(p) => (<Syllabus {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
@@ -92,4 +96,7 @@ function StudentLayout(props) {
         </div>
     )
 }
-export default connect(null, { setLogout })(StudentLayout)
+const mapStateToProps = state =>({
+    studentData : state.studentData
+})
+export default connect(mapStateToProps, { setLogout,setStudentData })(StudentLayout)

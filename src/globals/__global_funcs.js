@@ -1,7 +1,7 @@
 export const redirect = (user_type)=>{
     switch(parseInt(user_type)) {
         case 5:
-            return "/admin/dashboard"
+            return "/admin/add-question-set"
         case 2:
             return "/student/dashboard"
         case 0:

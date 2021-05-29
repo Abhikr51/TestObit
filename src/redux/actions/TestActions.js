@@ -30,3 +30,30 @@ export const setTestResult = (data) => {
         
     }
 }
+export const setStudentData = () => {
+
+
+    return (dispatch) => {
+        
+        LOADERON()
+        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+        axios.post(rootURL + "/auth/getStudentData",{}).then((res) => {
+            if(res.data.status){
+                
+                dispatch({
+                    type: "SET_STUDENT_DATA",
+                    payload : res.data.data
+                })
+                LOADEROFF();
+            }else{
+                LOADEROFF();
+            }
+            
+        }).catch((err) => {
+            
+            LOADEROFF();
+            console.log(err);
+        })
+        
+    }
+}
