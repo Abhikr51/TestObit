@@ -30,6 +30,12 @@ function Sidebar(props) {
             icon: <Icon className="fas fa-plus" />,
             dropdown: false,
         },
+        {
+            title: 'Upload PYQ',
+            link : "/upload-pyq",
+            icon: <Icon className="fas fa-upload" />,
+            dropdown: false,
+        },
         
 
     ]:[
@@ -43,6 +49,12 @@ function Sidebar(props) {
             title: 'Add Question Set',
             link : "/add-question-set",
             icon: <Icon className="fas fa-plus" />,
+            dropdown: false,
+        },
+        {
+            title: 'Upload PYQ',
+            link : "/upload-pyq",
+            icon: <Icon className="fas fa-upload" />,
             dropdown: false,
         },
     ]

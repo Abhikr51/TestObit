@@ -139,6 +139,22 @@ html {
     outline-offset: 5px;
     /* box-shadow: inset 0 0 0px 6px #432fbf8a; */
     z-index: 1;
+    transition: 0.7s;
+}
+.upload-avatar-loader {
+    border: 10px solid var(--primary);
+    animation: upload-loader 1s ease-in-out infinite alternate;
+    animation-delay: 0.7s;
+}
+@keyframes upload-loader {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0.5;
+        transform: scale(0.7);
+    }
 }
 .MuiFormControl-root {
     width: 100%;
@@ -163,7 +179,14 @@ html {
     right: -20px;
     color: #ffffff;
     padding: 17px;
+    opacity: 1;
+    transition: 0.7;
 }
+.upload-icon-loader {
+   
+ opacity: 0;
+}
+
 .login-logo {
     position: relative;
     height: 145px;

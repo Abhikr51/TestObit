@@ -6,6 +6,7 @@ import AdminSidebar from '../../../components/AdminSidebar'
 import { setLogout } from '../../../redux/actions/AuthActions';
 import AddQuestionSet from '../AddQuestionSet';
 import Dashboard from '../Dashboard';
+import UploadPYQ from '../UploadPYQ';
 
 
 
@@ -53,6 +54,7 @@ function AdminLayout(props) {
 
             <Switch>
                 <Route path="/admin/add-question-set" render={(p) => (<AddQuestionSet {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
+                <Route path="/admin/upload-pyq" render={(p) => (<UploadPYQ {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
                 {
                     (props.user.user_type == 7) ?
                     <Route path="/admin/superadmin-dashboard" render={(p) => (<Dashboard {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />

@@ -11,6 +11,7 @@ class AllSet extends Component {
         this.state = {
             imageSource: "./assets/img/user.png",
             image: {},
+            progress : false
         }
     }
 
@@ -18,8 +19,11 @@ class AllSet extends Component {
     }
     uploaImage = event => {
         event.preventDefault();
+       
         if (this.state.image.name) {
-            LOADERON();
+            this.setState({
+                progress : true
+            })
             let image = new FormData();
             image.append("photo", this.state.image, this.state.image.name);
             axios.post(rootURL + "/auth/uploadImage", image, {
@@ -33,14 +37,20 @@ class AllSet extends Component {
                 if(res.data.status){
                     this.props.editUser({photo : res.data.image_path})
                     this.props.history.push("/student/dashboard");                
-                    LOADEROFF();
+                    this.setState({
+                        progress : false
+                    })
                 }else{
-                    LOADEROFF();
+                    this.setState({
+                        progress : false
+                    })
                     
                 }
             }).catch((err) => {
                 console.log(err);
-                LOADEROFF();
+                this.setState({
+                    progress : false
+                })
             })
 
         }
@@ -57,11 +67,11 @@ class AllSet extends Component {
                                 <form onSubmit={this.uploaImage}>
                                     <div className="row justify-content-center my-5">
                                         <div className="col-12 ">
-                                            <div className="upload-avatar">
-                                                <label htmlFor="upload-pic" className="upload-icon">
+                                            <div className={`upload-avatar ${this.state.progress ? "upload-avatar-loader" :"" }`}>
+                                                <label htmlFor="upload-pic" className={`upload-icon ${this.state.progress ? "upload-icon-loader":""}`}>
                                                     <i class="fas fa-camera fa-2x"></i>
                                                 </label>
-                                                <label style={{ borderRadius: "inherit", overflow: 'hidden', display: "block", width: "100%", height: "100%" }} htmlFor="upload-pic" >
+                                                <label style={{ borderRadius: "inherit", overflow: 'hidden', display: "block", width: "100%", height: "100%" ,}} htmlFor="upload-pic" >
                                                     <img width="100%" src={this.state.imageSource} alt="" />
                                                 </label>
                                             </div>
@@ -71,7 +81,7 @@ class AllSet extends Component {
                                         {
                                             (this.state.imageSource !== "./assets/img/user.png") ?
                                                 <div className="col-12 mt-1">
-                                                    <button type="submit"  className="btn btn-primary btn-block">Upload &amp; Finish</button>
+                                                    <button disabled={this.state.progress} type="submit"  className="btn btn-primary btn-block">{this.state.progress ? "Uploading please wait ...":" Upload & Finish"}</button>
                                                 </div>
                                                 : ""
                                         }

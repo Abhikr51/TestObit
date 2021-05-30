@@ -1,5 +1,5 @@
-// var root = "http://localhost:8000"
-var root = "https://testobit.astergo.in"
+var root = "http://localhost:8000";
+// var root = "https://testobit.astergo.in"
 
 
 // export const rootURL = "/api" ; 

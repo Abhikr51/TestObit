@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { Divider, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText, ListSubheader } from '@material-ui/core'
 import LongTopbar from '../../components/LongTopbar'
 import axios from 'axios';
-import { rootURL } from '../../globals/__gobal_vars';
+import { imageURL, rootURL } from '../../globals/__gobal_vars';
 import { LOADEROFF, LOADERON } from '../../globals/__global_funcs';
+import { saveAs } from 'file-saver';
 export default class PYQ extends Component {
     constructor(props) {
         super(props);
@@ -21,7 +22,7 @@ export default class PYQ extends Component {
         LOADERON();
         axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem('token');
         axios.post(rootURL + "/auth/getSubjectWiseQuestionSets", {
-            test_type: 3
+            test_type: 5
         }).then((res) => {
             //success
             if (res.data.status) {
@@ -103,7 +104,7 @@ export default class PYQ extends Component {
                                                         button>
                                                         <ListItemText id={`checkbox-list-secondary-label-${i}`} primary={set.title} />
                                                         <ListItemSecondaryAction>
-                                                            <IconButton > <i className="fas text-primary fa-download"></i> </IconButton >
+                                                            <IconButton onClick={()=>{saveAs(imageURL+ set.pdf,set.title)}} > <i className="fas text-primary fa-download"></i> </IconButton >
                                                         </ListItemSecondaryAction>
                                                     </ListItem>
                                                 );

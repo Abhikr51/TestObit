@@ -152,7 +152,7 @@ export default class AddQuestionSet extends Component {
                                             <option selected={"" == this.state.test_type} value="">-- Select Test --</option>
                                             {
                                                 this.state.testList.map((item, i) => (
-                                                    <option selected={item.id == this.state.test_type} key={i} value={item.id}>{item.title}</option>
+                                                    <option disabled={item.id == 5} selected={item.id == this.state.test_type} key={i} value={item.id}>{item.title}</option>
                                                 ))
                                             }
                                         </select>
