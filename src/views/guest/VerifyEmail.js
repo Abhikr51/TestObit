@@ -68,6 +68,9 @@ export default class VerifyEmail extends Component {
                             </div>
                             <br />
                             <p className="text-center ">Wrong Email ? <span className="text-primary">click to change</span></p>
+                           <br />
+                           <br />
+                           <a href="https://skbuonline.in/oldQP/UGSI/2020/BCA/bca%20-%20bbcacchc102.pdf" download > Click to download<i className="fas text-primary fa-download"></i> </a >
                         </div>
                     </div>
                 </div>

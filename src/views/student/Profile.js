@@ -1,6 +1,7 @@
 import { IconButton } from '@material-ui/core'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { imageURL } from '../../globals/__gobal_vars'
 
 class Profile extends Component {
     
@@ -22,7 +23,7 @@ class Profile extends Component {
                 </div>
                 <div className="front-card">
                     <div className="img-avatar">
-                        <img src="/assets/img/user.png" alt="image" />
+                        <img src={(this.props.user.photo !== null)? imageURL+this.props.user.photo : "./assets/img/user.png"} alt="image" />
                     </div>
                     <div className="front-card-body">
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Divider,IconButton, List, ListItem, ListItemSecondaryAction, ListItemText, ListSubheader } from '@material-ui/core'
+import { Divider, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText, ListSubheader } from '@material-ui/core'
 import LongTopbar from '../../components/LongTopbar'
 import axios from 'axios';
 import { rootURL } from '../../globals/__gobal_vars';
@@ -51,7 +51,7 @@ export default class PYQ extends Component {
                             <div className="col-4">
                                 <div className="static-card">
                                     <div className="text-right"><i className="fas fa-percent text-primary"></i> &nbsp;&nbsp; </div>
-                                    <p className="text-left">{(total != 0 ) ? Math.round((this.props.studentData.right / (total)) * 100) : 0}</p>
+                                    <p className="text-left">{(total != 0) ? Math.round((this.props.studentData.right / (total)) * 100) : 0}</p>
                                 </div>
                             </div>
 
@@ -76,56 +76,57 @@ export default class PYQ extends Component {
                 </LongTopbar>
 
                 <div className="list-box">
-                        {
-                            this.state.testList.map((subject, index) => (
-                                <React.Fragment key={index}>
+                    
+                    {
+                        this.state.testList.map((subject, index) => (
+                            <React.Fragment key={index}>
 
-                                    <List dense
-                                        subheader={
-                                            <ListSubheader component="div" id="nested-list-subheader">
-                                                {subject.title}
-                                            </ListSubheader>
-                                        } >
+                                <List dense
+                                    subheader={
+                                        <ListSubheader component="div" id="nested-list-subheader">
+                                            {subject.title}
+                                        </ListSubheader>
+                                    } >
 
-                                        {
-                                            (subject.question_sets.length > 0) ?
-                                                subject.question_sets.map((set, i) => {
+                                    {
+                                        (subject.question_sets.length > 0) ?
+                                            subject.question_sets.map((set, i) => {
 
-                                                    return (
-                                                        <ListItem
-                                                            key={i}
-                                                            style={{
-                                                                background: "#5c5c5c1f",
-                                                                padding: "10px 15px",
-                                                                margin: "5px 0"
-                                                            }}
-                                                            button>
-                                                            <ListItemText id={`checkbox-list-secondary-label-${i}`} primary={set.title} />
-                                                            <ListItemSecondaryAction>
-                                                                <IconButton > <i className="fas text-primary fa-download"></i> </IconButton >
-                                                            </ListItemSecondaryAction>
-                                                        </ListItem>
-                                                    );
-                                                })
-                                                :
-                                                <ListItem
-                                                    style={{
-                                                        background: "#5c5c5c1f",
-                                                        padding: "10px 15px",
-                                                        margin: "5px 0"
-                                                    }}
-                                                    button>
-                                                    <ListItemText id={`checkbox-list-secondary-label-${1}`} primary={<>{"Sorry no Question sets available ..."}<i className="fas fa-sad-tear"></i></>} />
+                                                return (
+                                                    <ListItem
+                                                        key={i}
+                                                        style={{
+                                                            background: "#5c5c5c1f",
+                                                            padding: "10px 15px",
+                                                            margin: "5px 0"
+                                                        }}
+                                                        button>
+                                                        <ListItemText id={`checkbox-list-secondary-label-${i}`} primary={set.title} />
+                                                        <ListItemSecondaryAction>
+                                                            <IconButton > <i className="fas text-primary fa-download"></i> </IconButton >
+                                                        </ListItemSecondaryAction>
+                                                    </ListItem>
+                                                );
+                                            })
+                                            :
+                                            <ListItem
+                                                style={{
+                                                    background: "#5c5c5c1f",
+                                                    padding: "10px 15px",
+                                                    margin: "5px 0"
+                                                }}
+                                                button>
+                                                <ListItemText id={`checkbox-list-secondary-label-${1}`} primary={<>{"Sorry no Question sets available ..."}<i className="fas fa-sad-tear"></i></>} />
 
-                                                </ListItem>
-                                        }
-                                    </List>
-                                    <Divider />
-                                </React.Fragment>
-                            ))
-                        }
+                                            </ListItem>
+                                    }
+                                </List>
+                                <Divider />
+                            </React.Fragment>
+                        ))
+                    }
 
-                    </div>
+                </div>
             </div>
         )
     }

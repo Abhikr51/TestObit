@@ -12,6 +12,17 @@ export const setLogin = (data) => {
         })
     }
 }
+export const editUser = (data) => {
+
+
+    return (dispatch) => {
+
+        dispatch({
+            type: "EDIT_USER",
+            payload: data
+        })
+    }
+}
 export const setLogout = () => {
 
 

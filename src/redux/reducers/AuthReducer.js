@@ -13,6 +13,14 @@ const AuthReducer = (state=initState, actions) => {
                 loggedIn: true,
                 user: actions.payload
             };
+        case "EDIT_USER":
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    ...actions.payload
+                }
+            };
         case "SET_LOGOUT":
             return {
                 ...state,

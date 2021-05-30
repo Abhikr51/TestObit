@@ -13,11 +13,13 @@ export default class SchedulledTest extends Component {
     state = {
         testList: [],
         visible: false,
-        selectedItem : {}
+        selectedItem: {}
     }
+    dataFetcher = (loader) => {
+        if (loader) {
+            LOADERON();
+        }
 
-    componentDidMount() {
-        LOADERON();
         axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem('token');
         axios.post(rootURL + "/auth/getScheduledTests", {
             limit: this.props.limit
@@ -27,24 +29,35 @@ export default class SchedulledTest extends Component {
                 this.setState({
                     testList: res.data.data,
                 })
-                // console.log(futurePastDetecter(new Date(res.data.data[0].date.split(" ")[0])))
-                LOADEROFF();
+                if (loader) {
+                    LOADEROFF();
+                }
             } else {
-                LOADEROFF();
+                if (loader) {
+                    LOADEROFF();
+                }
                 console.log(res);
             }
         }).catch((err) => {
-            LOADEROFF();
+            if (loader) {
+                LOADEROFF();
+            }
             console.log(err);
 
-        })
+        });
+
+    }
+    componentDidMount() {
+        this.dataFetcher(true)
         // console.log(futurePastDetecter("2021-05-19", "14"));
     }
     colorDetector = (date) => {
         var dateStr = date.split(" ")[0]
-        var time = parseInt(date.split(" ")[1].split(":")[0]) + parseInt(date.split(" ")[1].split(":")[1]);
-        switch (futurePastDetecter(dateStr, time)) {
+        switch (futurePastDetecter(dateStr, date.split(" ")[1])) {
             case 'Upcoming today':
+
+                return "var(--primary)"
+            case 'Running':
 
                 return "var(--success)"
             case 'Upcoming':
@@ -56,6 +69,40 @@ export default class SchedulledTest extends Component {
 
             default:
                 break;
+        }
+    }
+    futurePastDetecter2 = (givenDate, hours) => {
+        let now = new Date();
+        let date = new Date(givenDate);
+        // return date.getHours();
+        let [h, m, s] = hours.split(":");
+        let d = new Date()
+        if (date.setHours(0, 0, 0, 0) > now.setHours(0, 0, 0, 0)) {
+            return "Upcoming";
+        } else if (date.setHours(0, 0, 0, 0) < now.setHours(0, 0, 0, 0)) {
+            return "Missed"
+        } else {
+            // return (parseInt(h)*60 + parseInt(m)+60 )+  " = "+ (d.getHours()*60 + d.getMinutes())
+            if ((parseInt(h) * 60 + parseInt(m)) < (d.getHours() * 60 + d.getMinutes())) {
+                if ((parseInt(h) * 60 + parseInt(m) + 60) > (d.getHours() * 60 + d.getMinutes())) {
+                    return "Running"
+                } else {
+                    return "Missed"
+                }
+            } else {
+                return "Upcoming today"
+
+            }
+        }
+    }
+    revealQuestions = (str) => {
+        switch (str) {
+            case "Running":
+                return false
+            case "Missed":
+                return false
+            default:
+                return true
         }
     }
     render() {
@@ -72,32 +119,45 @@ export default class SchedulledTest extends Component {
                 <div className="card my-3">
                     {
                         (this.state.testList.length > 0) ?
-                    <div className="card-body p-2">
-
-                        {
-                            this.state.testList.map((item, index) => (
-
-                                <div key={index} style={{ borderColor: item.date ? this.colorDetector(item.date) : "var(--primary)" }} className="schedule-box">
-                                    <div style={{ fontSize: "12px" }} className="row justify-content-center">
-                                        <div className="col-8 "><i style={{ color: item.date ? this.colorDetector(item.date) : "var(--primary)" }} className="fas fa-calendar-day"></i> {item.date ? item.date.split(" ")[0].split("-").reverse().join("-") : ""} at {item.date ? timeConvert(item.date.split(" ")[1]) : ""}</div>
-                                        <div className="col-4 text-right"><i style={{ color: item.date ? this.colorDetector(item.date) : "var(--primary)" }} className="fas fa-clock"></i> <i>{item.time ? parseInt(item.time.split(":")[0]) * 60 + parseInt(item.time.split(":")[1]) : ""} min</i></div>
-                                        <div className="col-9 "><i style={{ color: item.date ? this.colorDetector(item.date) : "var(--primary)" }} className="fas fa-angle-double-right"></i> {item.subject.title ?? ""}</div>
-                                        <div className="col-3 text-right"><i style={{ color: item.date ? this.colorDetector(item.date) : "var(--primary)" }} className="fas fa-angle-double-right"></i> {item.q_length} Qs</div>
-
-                                        <div className="col-11 my-2">
-
-                                            <h4 className="font-weight-light">{item.title}</h4>
-                                            <p className="text-muted">{item.date ? futurePastDetecter(item.date.split(" ")[0], parseInt(item.date.split(" ")[1].split(":")[0]) + parseInt(item.date.split(" ")[1].split(":")[1])) : ""} ...</p>
-                                        </div>
+                            <div className="card-body p-2">
+                                <div className="row justify-content-end">
+                                    <div className="col-4">
+                                        <Button onClick={() => { this.dataFetcher(true); }} color="primary"> Refresh </Button>
                                     </div>
-                                    <div onClick={()=>{this.setState({visible : true , selectedItem : item})}} style={{ background: item.date ? this.colorDetector(item.date) : "var(--primary)", color: "white" }} className="bottom-box ripple"> Go  &nbsp;<i className="fas fa-caret-right"></i></div>
                                 </div>
-                            ))
-                        }
+                                {
+                                    this.state.testList.map((item, index) => (
 
-                    </div>
-                    :
-                    <h3 className="font-weight-light text-center p-5">Sorry no tests are shedulled .</h3>
+                                        <div key={index} style={{ borderColor: item.date ? this.colorDetector(item.date) : "var(--primary)" }} className="schedule-box">
+                                            <div style={{ fontSize: "12px" }} className="row justify-content-center">
+                                                <div className="col-8 "><i style={{ color: item.date ? this.colorDetector(item.date) : "var(--primary)" }} className="fas fa-calendar-day"></i> {item.date ? item.date.split(" ")[0].split("-").reverse().join("-") : ""} at {item.date ? timeConvert(item.date.split(" ")[1]) : ""}</div>
+                                                <div className="col-4 text-right"><i style={{ color: item.date ? this.colorDetector(item.date) : "var(--primary)" }} className="fas fa-clock"></i> <i>{item.time ? parseInt(item.time) : ""} min</i></div>
+                                                <div className="col-9 "><i style={{ color: item.date ? this.colorDetector(item.date) : "var(--primary)" }} className="fas fa-angle-double-right"></i> {item.subject.title ?? ""}</div>
+                                                <div className="col-3 text-right"><i style={{ color: item.date ? this.colorDetector(item.date) : "var(--primary)" }} className="fas fa-angle-double-right"></i> {item.q_length} Qs</div>
+
+                                                <div className="col-11 my-2">
+
+                                                    <h4 className="font-weight-light">{item.title}</h4>
+                                                    <br />
+                                                </div>
+                                            </div>
+                                            <div className="bottom-box ">
+                                                <div className="row align-items-end">
+                                                    <div className="col-8">
+                                                        <div className="text-muted">{item.date ? futurePastDetecter(item.date.split(" ")[0], item.date.split(" ")[1]) : ""} ...</div>
+                                                    </div>
+                                                    <div className="col-4">
+                                                        <button disabled={item.date ? (this.revealQuestions(futurePastDetecter(item.date.split(" ")[0], item.date.split(" ")[1]))) : false} className="btn btn-block  btn-sm float-right" onClick={() => { this.setState({ visible: true, selectedItem: item }) }} style={{ borderRadius: "0", borderTopLeftRadius: "20px", cursor: "pointer", background: item.date ? this.colorDetector(item.date) : "var(--primary)", color: "white" }}  >Go  &nbsp;<i className="fas fa-caret-right"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+
+                            </div>
+                            :
+                            <h3 className="font-weight-light text-center p-5">Sorry no tests are shedulled .</h3>
                     }
                 </div>
                 <Dialog
@@ -117,7 +177,7 @@ export default class SchedulledTest extends Component {
                                         <div className="col-4">Questions</div>
                                         <div className="col-8">{this.state.selectedItem.q_length}</div>
                                         <div className="col-4">Time</div>
-                                        <div className="col-8">{parseInt(this.state.selectedItem.time.split(":")[0]) * 60 + parseInt(this.state.selectedItem.time.split(":")[1])} min</div>
+                                        <div className="col-8">{parseInt(this.state.selectedItem.time)} min</div>
 
                                     </div> : ""
                             }
@@ -127,7 +187,7 @@ export default class SchedulledTest extends Component {
                         <Button onClick={() => { this.setState({ visible: false }) }} color="primary">
                             Close
                     </Button>
-                        <Button onClick={() => { this.setState({ visible: false }); this.props.history.push("/student/test/" + this.state.selectedItem.id + "/" + (parseInt(this.state.selectedItem.time.split(":")[0]) * 60 + parseInt(this.state.selectedItem.time.split(":")[1]))) }} color="primary" autoFocus>
+                        <Button onClick={() => { this.setState({ visible: false }); this.props.history.push("/student/test/" + this.state.selectedItem.id + "/" + (parseInt(this.state.selectedItem.time))) }} color="primary" autoFocus>
                             Start
                     </Button>
                     </DialogActions>

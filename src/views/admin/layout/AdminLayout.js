@@ -5,6 +5,7 @@ import { Route, Switch, useLocation } from 'react-router';
 import AdminSidebar from '../../../components/AdminSidebar'
 import { setLogout } from '../../../redux/actions/AuthActions';
 import AddQuestionSet from '../AddQuestionSet';
+import Dashboard from '../Dashboard';
 
 
 
@@ -52,10 +53,17 @@ function AdminLayout(props) {
 
             <Switch>
                 <Route path="/admin/add-question-set" render={(p) => (<AddQuestionSet {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
-                
+                {
+                    (props.user.user_type == 7) ?
+                    <Route path="/admin/superadmin-dashboard" render={(p) => (<Dashboard {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
+                    : null
+                }
             </Switch>
         </div>
     )
 }
+const mapStateToProps = (state) => ({
+    user : state.auth.user
+})
 
-export default connect(null, { setLogout })(AdminLayout)
+export default connect(mapStateToProps, { setLogout })(AdminLayout)

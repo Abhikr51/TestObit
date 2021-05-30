@@ -10,22 +10,23 @@ export const setTestResult = (data) => {
             type: "SET_TEST_RESULT",
             payload : data
         })
-        
+        LOADERON()
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
         axios.post(rootURL + "/auth/uploadAnswers", {
             answer_array : data
         }).then((res) => {
-            if(res.data.status){
+            // if(res.data.status){
                 
                 
-            }else{
+            // }else{
                 
 
-            }
-            
+            // }
+            LOADEROFF();
         }).catch((err) => {
             
             console.log(err);
+            LOADEROFF();
         })
         
     }

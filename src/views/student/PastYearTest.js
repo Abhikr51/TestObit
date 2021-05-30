@@ -147,7 +147,7 @@ export default class PastYearTest extends Component {
                                 <div className="col-4">Questions</div>
                                 <div className="col-8">{this.state.selectedItem.q_length}</div>
                                 <div className="col-4">Time</div>
-                                <div className="col-8">{parseInt(this.state.selectedItem.time.split(":")[0])*60 + parseInt(this.state.selectedItem.time.split(":")[1])} min</div>
+                                <div className="col-8">{parseInt(this.state.selectedItem.time) } min</div>
                                 
                             </div>: ""
                         }
@@ -157,7 +157,7 @@ export default class PastYearTest extends Component {
                     <Button onClick={()=>{this.setState({visible : false})}} color="primary">
                         Close
                     </Button>
-                    <Button  onClick={()=>{this.setState({visible : false }); this.props.history.push("/student/test/" + this.state.selectedItem.id + "/" + (parseInt(this.state.selectedItem.time.split(":")[0])*60 + parseInt(this.state.selectedItem.time.split(":")[1]) )    )}}  color="primary" autoFocus>
+                    <Button  onClick={()=>{this.setState({visible : false }); this.props.history.push("/student/test/" + this.state.selectedItem.id + "/" + (parseInt(this.state.selectedItem.time)  )    )}}  color="primary" autoFocus>
                         Start
                     </Button>
                     </DialogActions>

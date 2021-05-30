@@ -24,21 +24,23 @@ class Dashboard extends Component {
             let dataWrong = []
             let totalTests = Object.keys(this.props.studentData.set_data).length
             Object.entries(this.props.studentData.set_data).reverse().map((item,index)=>{
-                labels = [...labels , "T-"+(index+1)];
-                let tempr = 0
-                let tempw = 0
-                item[1].map((nItem)=>{
-                    if(nItem.answer !== null){
-                        if(nItem.answer == nItem.question.answer){
-                            tempr++;
-                        }else{
-                            tempw++;
+                if(Object.keys(this.props.studentData.set_data).length-15 < index+1){
+                    labels = [...labels , "T-"+(index+1)];
+                    let tempr = 0
+                    let tempw = 0
+                    item[1].map((nItem)=>{
+                        if(nItem.answer !== null){
+                            if(nItem.answer == nItem.question.answer){
+                                tempr++;
+                            }else{
+                                tempw++;
+                            }
                         }
-                    }
-                });
-                dataRight = [...dataRight, tempr]
-                dataWrong = [...dataWrong, tempw]
-                
+                    });
+                    dataRight = [...dataRight, tempr]
+                    dataWrong = [...dataWrong, tempw]
+                    
+                }
             })
             let chartState = {
     
@@ -113,7 +115,7 @@ class Dashboard extends Component {
                                                     backgroundColor: '#3e98c7',
                                                 })}
                                             >
-                                                {(total != 0 ) ? Math.round((this.props.studentData.right / (total)) * 100) : 0}
+                                                {(total != 0 ) ? Math.round((this.props.studentData.right / (total)) * 100) : 0} %
                                                 <h6 style={{ fontSize: "11px", textAlign: "center" }} className="font-weight-light">Accuracy</h6>
                                             </CircularProgressbarWithChildren>
                                         </div>

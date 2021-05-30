@@ -19,18 +19,18 @@ export default class About extends Component {
                                 The tremendous popularity of using online education system could
                                 never have been realized before. In this COVID-19 pendemic this become an
                                 important way of learning without going or travelling another place we can continue our learnings from home.
-                                That's why we approach this pattern of learning an we created a test taking hybrid mobile as our college project named as
+                                That's why we approach this pattern of learning an we created a test taking hybrid mobile application as our college project named as
                                  <span className="text-primary"> BIST TestOBit</span>.
                                 </p>
                             <ul>
                                 <li>
-                                    The scope of Test O Bit is provide supprort our student that make himself/herself better.
+                                    The scope of Test O Bit is provide support our student that make himself/herself better.
                                     </li>
                                 <li>
-                                    The bright future of our college students is also grows our college reputatation.
+                                    The bright future of our college students is also grows our college reputation.
                                     </li>
                                 <li>
-                                    We provide our app supprort into mobile phones that students can easli access it.
+                                    We provide our app support into mobile phones that students can easily access it.
                                     </li>
                             </ul>
                         </div>

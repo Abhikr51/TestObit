@@ -23,12 +23,29 @@ const useStyles = makeStyles({
 });
 function Sidebar(props) {
     const classes = useStyles();
-    // const [state, setState] = React.useState({
-    //     top: false,
-    //     left: false,
-    //     bottom: false,
-    //     right: false,
-    // });
+    let routes = (props.user.user_type == 5)? [
+        {
+            title: 'Add Question Set',
+            link : "/add-question-set",
+            icon: <Icon className="fas fa-plus" />,
+            dropdown: false,
+        },
+        
+
+    ]:[
+        {
+            title: 'Dashboard',
+            link : "/superadmin-dashboard",
+            icon: <Icon className="fas fa-tachometer-alt" />,
+            dropdown: false,
+        },
+        {
+            title: 'Add Question Set',
+            link : "/add-question-set",
+            icon: <Icon className="fas fa-plus" />,
+            dropdown: false,
+        },
+    ]
     const StyledBadge = withStyles((theme) => ({
         badge: {
           backgroundColor: '#44b700',
@@ -98,16 +115,7 @@ function Sidebar(props) {
                     </ListSubheader>
                 }
             >
-                {[
-                    {
-                        title: 'Add Question Set',
-                        link : "/add-question-set",
-                        icon: <Icon className="fas fa-plus" />,
-                        dropdown: false,
-                    },
-                    
-
-                ].map((item, index) => {
+                {routes.map((item, index) => {
                     if (item.dropdown) {
 
                         return <SidebarDropdown

@@ -12,6 +12,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import SidebarDropdown from './SidebarDropdown';
 import { Link } from 'react-router-dom';
 import {connect} from "react-redux"
+import { imageURL } from '../globals/__gobal_vars';
 
 const useStyles = makeStyles({
     list: {
@@ -74,7 +75,9 @@ function Sidebar(props) {
 
         >
             <div  className="sidenav-top">
-                <Link to="/student/profile"  className="sidenav-logo d-block">
+                <Link
+                onClick={props.toggleDrawer(anchor, false)}
+                to="/student/profile"  className="sidenav-logo d-block">
                     {/* <img className="w-100" src="./assets/img/abhijeet.jpeg" alt="" /> */}
                     <StyledBadge
                         overlap="circle"
@@ -85,11 +88,12 @@ function Sidebar(props) {
                         variant="dot"
 
                     >
-                        <Avatar style={{height: "100%" , width: "100%"}} alt="Remy Sharp" src="./assets/img/user.png" />
+                        <Avatar style={{height: "100%" , width: "100%"}} alt="picture" src={(props.user.photo !== null)? imageURL+props.user.photo : "./assets/img/user.png"} />
+                        
                     </StyledBadge>
                 </Link>
                 <p className="sidenav-text text-center text-white ">{(props.user.name) ?? "Loading.."}</p>
-                <div className="d-flex justify-content-between text-white">
+                {/* <div className="d-flex justify-content-between text-white">
                     <span className="d-inline-block">
                         <i className="far fa-eye"></i> 10,652
                     </span>
@@ -97,7 +101,7 @@ function Sidebar(props) {
                         <i className="fas fa-fire"></i> 1,782
                     </span>
 
-                </div>
+                </div> */}
             </div>
             <List
                 subheader={

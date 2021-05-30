@@ -42,6 +42,12 @@ function App(props) {
   });
   const activeUser = (UserType) => {
     switch (UserType) {
+      case 7:
+        return <React.Fragment>
+          <AuthRoute path="/admin" component={AdminLayout} />
+          
+
+        </React.Fragment>
       case 5:
         return <React.Fragment>
           <AuthRoute path="/admin" component={AdminLayout} />

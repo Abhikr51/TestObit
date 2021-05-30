@@ -1,5 +1,7 @@
 export const redirect = (user_type)=>{
     switch(parseInt(user_type)) {
+        case 7:
+            return "/admin/superadmin-dashboard"
         case 5:
             return "/admin/add-question-set"
         case 2:
@@ -73,7 +75,7 @@ export const notification =(text , type="info")=>{
             break;
         case 'success':
             var icon = document.createElement("i"); 
-            icon.className = "fas fa-check-circle fa-4x text-success";
+            icon.className = "fas fa-check-circle fa-6x text-success";
             iconElm.innerHTML = ""
             iconElm.append(icon)
             textElm.innerHTML = text;
@@ -88,7 +90,7 @@ export const notification =(text , type="info")=>{
             break;
         case 'error':
             var icon = document.createElement("i"); 
-            icon.className = "fas fa-times-circle fa-4x text-danger";
+            icon.className = "fas fa-times-circle fa-6x text-danger";
             iconElm.innerHTML = ""
             iconElm.append(icon)
             textElm.innerHTML = text;
@@ -116,7 +118,7 @@ export const notification =(text , type="info")=>{
                     boxElm.style.transform = "scale(0.5)";
                 }
                 var icon = document.createElement("i"); 
-                icon.className = "fas fa-exclamation-circle fa-4x text-warning";
+                icon.className = "fas fa-exclamation-circle fa-6x text-warning";
                 iconElm.innerHTML = ""
                 iconElm.append(icon)
                 textElm.innerHTML = text;
@@ -145,7 +147,7 @@ export const notification =(text , type="info")=>{
                     boxElm.style.transform = "scale(0.5)";
                 }
                 var icon = document.createElement("i"); 
-                icon.className = "fas fa-exclamation-circle fa-4x text-danger";
+                icon.className = "fas fa-exclamation-circle fa-6x text-danger";
                 iconElm.innerHTML = ""
                 iconElm.append(icon)
                 textElm.innerHTML = text;
@@ -169,14 +171,19 @@ export const notification =(text , type="info")=>{
 export const futurePastDetecter = (givenDate ,hours) => {
     let now = new Date();
     let date = new Date(givenDate);
-    // return date.getHours();
+    let [h ,m, s] = hours.split(":");
+    let d = new Date()
     if (date.setHours(0, 0, 0, 0) > now.setHours(0, 0, 0, 0)) {
         return "Upcoming";
     } else if (date.setHours(0, 0, 0, 0) < now.setHours(0, 0, 0, 0)) {
         return "Missed"
     } else {
-        if (new Date().getHours() >= hours) {
-            return "Missed"
+        if ((parseInt(h)*60 + parseInt(m)) <= (d.getHours()*60 + d.getMinutes())) {
+            if((parseInt(h)*60 + parseInt(m)+60) >= (d.getHours()*60 + d.getMinutes())){
+                return "Running"
+            }else{
+                return "Missed"
+            }
         } else {
             return "Upcoming today"
 

@@ -139,6 +139,21 @@ class TestResult extends Component {
                         </div>
                     </div>
                 </div>
+                    <div  style={{fontSize : "14px"}} className="row">
+                        <div className="col-4 text-center">
+                            <div className="circle"> <i className="fas fa-times-circle text-secondary"></i> </div>
+                            <div >Given wrong answer</div>
+                        </div>
+                        <div className="col-4 text-center">
+                            <div className="circle"> <i className="fas fa-check-circle text-success"></i> </div>
+                            <div >Correct answer</div>
+                        </div>
+                        <div className="col-4 text-center">
+                            <div className="circle"> <i className="fas fa-check-double text-success"></i> </div>
+                            <div >Given right answer</div>
+                        </div>
+                    </div>
+                    <br />
                 {
                     this.props.result.map((item,index)=>(
                         <div key={index} className="answer-box">
