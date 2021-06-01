@@ -103,7 +103,7 @@ class Register extends Component {
                     // this.setState({ progress: false })
                     this.props.setLogin(res.data.user);
                     LOADEROFF();
-                    this.props.history.push('/all-set');
+                    this.props.history.push('/all-set/0');
                 }else{
                     notification(res.data.errors[0],'error');
                     LOADEROFF();

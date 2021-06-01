@@ -57,7 +57,7 @@ function App(props) {
       case 2:
         return (<React.Fragment>
           <AuthRoute path="/student" component={StudentLayout} />
-          <AuthRoute path="/all-set" component={AllSet} />
+          <AuthRoute path="/all-set/:change" component={AllSet} />
         </React.Fragment>)
       case 0:
         return <Route exact path="/" component={Login} />
