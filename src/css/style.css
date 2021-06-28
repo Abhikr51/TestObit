@@ -208,7 +208,7 @@ html {
     min-height: 111px;
     z-index: 10;
     top: 0;
-    padding: 12px;
+    /* padding: 12px; */
     height: -moz-fit-content;
     height: fit-content;
     background: var(--primary);
@@ -727,4 +727,34 @@ ul a{
     left: 0;
     backdrop-filter: blur(2px);
     z-index: 2000;
+}
+.back-button{
+    top: -52px;
+    position: absolute;
+    /* height: 95px; */
+    right: -29px;
+    padding: 14px 38px 23px 18px;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    width: 79px;
+    border-radius: 51px;
+    background: #2196f3c7;
+    cursor: pointer;
+}
+.brand {
+    width: 100%;
+    background: #0000001f;
+    margin: 0;
+    margin-bottom: 5px;
+}
+.brand-image{
+}
+.brand-text {
+    color: white;
+    align-self: center;
+    line-height: 20px;
+}
+.notice-board li{
+    padding: 15px 1px;
 }

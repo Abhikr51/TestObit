@@ -16,7 +16,7 @@ class Register extends Component {
     state = {
         formdata: {
             name: '',
-            dob: '',
+            dob: "2000-01-25",
             semester: '',
             gender: 'male',
             email: '',
@@ -94,7 +94,7 @@ class Register extends Component {
                 "password": this.state.formdata.password,
             }).then(res => {
                 //success
-                if(res.data.status){
+                if (res.data.status) {
                     console.log(res);
                     localStorage.setItem('token', res.data.access_token);
                     localStorage.setItem('email', res.data.user.email);
@@ -104,11 +104,11 @@ class Register extends Component {
                     this.props.setLogin(res.data.user);
                     LOADEROFF();
                     this.props.history.push('/all-set/0');
-                }else{
-                    notification(res.data.errors[0],'error');
+                } else {
+                    notification(res.data.errors[0], 'error');
                     LOADEROFF();
                 }
-                
+
             }).catch((err) => {
                 console.log(err);
                 LOADEROFF();
@@ -176,11 +176,23 @@ class Register extends Component {
                                     </div>
                                     <div className="col-12 my-1">
                                         <TextField
+                                            id="date"
+                                            value={this.state.formdata.dob}
+                                            onChange={(e) => { this.setData(e, 'dob') }}
+                                            label="Birthday"
+                                            type="date"
+                                            helperText={(this.state.errors.dob) ? "Field is required" : ""}
+                                            // defaultValue="2000-01-01"
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                        />
+                                        {/* <TextField
                                             value={this.state.formdata.dob}
                                             onChange={(e) => { this.setData(e, 'dob') }}
                                             error={this.state.errors.dob}
                                             helperText={(this.state.errors.dob) ? "Field is required" : ""}
-                                            id="date" type="date" placeholder="select date" label="Date of birth" />
+                                            id="date" type="date" placeholder="select date" label="Date of birth" /> */}
 
                                     </div>
                                     <div className="col-12 my-1">

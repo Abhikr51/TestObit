@@ -168,6 +168,7 @@ export default class AddQuestionSet extends Component {
                                             <option selected={"50" == this.state.length} value="50">50</option>
                                             <option selected={"30" == this.state.length} value="30">30</option>
                                             <option selected={"10" == this.state.length} value="10">10</option>
+                                            <option selected={"20" == this.state.length} value="20">20</option>
                                             <option selected={"2" == this.state.length} value="2">2</option>
                                         </select>
                                         :

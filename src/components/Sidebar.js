@@ -75,6 +75,23 @@ function Sidebar(props) {
 
         >
             <div  className="sidenav-top">
+                <div className="brand row">
+                    <div className="brand-image col-4 p-1">
+                        <img width="100%" src="./assets/img/only-logo-white.png" alt="" />
+                    </div>
+                    <div className="brand-text col-8"> 
+                        <i> 
+                            <span style={{
+                                fontSize: "15px",
+
+                            }} >Bist <br /></span>  
+                            <span style={{
+                                fontSize: "25px",
+
+                            }} > &nbsp;&nbsp;TestOBit</span> 
+                        </i>   
+                    </div>
+                </div>
                 <Link
                 onClick={props.toggleDrawer(anchor, false)}
                 to="/student/profile"  className="sidenav-logo d-block">
@@ -92,7 +109,7 @@ function Sidebar(props) {
                         
                     </StyledBadge>
                 </Link>
-                <p className="sidenav-text text-center text-white ">{(props.user.name) ?? "Loading.."}</p>
+                <p className="sidenav-text text-center text-white p-1">{(props.user.name) ?? "Loading.."}</p>
                 {/* <div className="d-flex justify-content-between text-white">
                     <span className="d-inline-block">
                         <i className="far fa-eye"></i> 10,652

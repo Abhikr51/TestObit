@@ -67,16 +67,7 @@ function StudentLayout(props) {
 
                 <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>
-            {/* <TransitionGroup>
-                <CSSTransition
-                    key={location.pathname}
-                    timeout={1000}
-                    classNames="fade"
-                    
-                >
-
-                </CSSTransition>
-            </TransitionGroup> */}
+            
                     <Switch>
                         <Route path="/student/dashboard" render={(p) => (<Dashboard {...p} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />
                         <Route path="/student/mock-test" render={(p) => (<MockTest {...p} studentData={props.studentData ?? {}} toggleDrawer={toggleDrawer} togglePopper={togglePopper} />)} />

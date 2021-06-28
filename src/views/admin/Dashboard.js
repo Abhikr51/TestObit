@@ -83,7 +83,7 @@ class Dashboard extends Component {
                     <IconButton className="float-right" onClick={this.props.togglePopper}> <i style={{ fontSize: "20px" }} className="fas fa-ellipsis-v  text-white"></i> </IconButton >
                 </Topbar>
                 <div className="container-fluid">
-                    <table className="table table-bordered table-sm ">
+                    <table className="table table-bordered table-sm table-responsive">
                         <thead className="thead-dark">
                             <tr>
                                 <th>id</th>

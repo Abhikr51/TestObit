@@ -4,6 +4,7 @@ import { IconButton } from '@material-ui/core';
 import Topbar from '../../components/Topbar'
 import { Line } from 'react-chartjs-2';
 import SchedulledTest from './SchedulledTest';
+import Notice from './Notice';
 
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -187,28 +188,7 @@ class Dashboard extends Component {
                             <h5 className="card-header font-weight-light"> Scheduled Tests</h5>
                             <SchedulledTest history={{ push: this.push }} limit={3} topbar={false} />
                         </div>
-                        <div className="card">
-                            <h5 className="card-header font-weight-ligh">Notice</h5>
-                            <div className="card-body">
-                                <ul className="notice-board">
-                                    <li>Lorem ipsum dolor sit amet.</li>
-                                    <li> <span className="blink-badge">NEW</span>Lorem ipsum dolor sit amet.</li>
-                                    <li>Lorem ipsum dolor sit amet.</li>
-                                    <li><span className="blink-badge">NEW</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, voluptatum. Dolore, porro?</li>
-                                    <li>Lorem ipsum dolor sit amet.</li>
-                                    <li><span className="blink-badge">NEW</span>Lorem ipsum dolor sit amet.</li>
-                                    <li>Lorem ipsum dolor sit amet.</li>
-                                    <li><span className="blink-badge">NEW</span>Lorem ipsum dolor sit amet.</li>
-                                    <li>Lorem ipsum dolor sit amet.</li>
-                                    <li><span className="blink-badge">NEW</span>Lorem ipsum dolor sit amet.</li>
-                                    <li>Lorem ipsum dolor sit amet.</li>
-                                    <li>Lorem ipsum dolor sit amet.</li>
-                                    <li><span className="blink-badge">NEW</span>Lorem ipsum dolor sit amet.</li>
-                                    <li>Lorem ipsum dolor sit amet.</li>
-                                    <li>Lorem ipsum dolor sit amet.</li>
-                                </ul>
-                            </div>
-                        </div>
+                        <Notice topbar={false} />
                         <br />
                         <br />
                         <br />
